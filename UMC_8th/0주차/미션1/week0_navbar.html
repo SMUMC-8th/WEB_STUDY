@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> <!-- 문서의 언어를 한국어(ko)로 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹을 위한 뷰포트 설정-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script> <!--FontAwesome 아이콘 라이브러리-->
+    <title>Navigation Bar</title> <!-- 웹페이지 제목 설정 -->
+</head>
+
+<style>
+  /* 모든 요소의 기본 마진과 패딩 제거, 박스 크기를 border-box로 설정 */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 페이지의 기본 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;                     /*가로 정렬을 위한 flexbox 설정*/
+    justify-content: space-between;    /* 좌우 요소를 양 끝으로 정렬 */
+    align-items: center;               /* 요소를 수직 중앙 정렬 */
+    padding: 15px 30px;                /* 내부 여백 설정 */
+    background-color: white;         /* 배경색 흰색으로 설정 */
+    border-bottom: 1px solid #ddd;   /* 아래쪽 경계선 추가*/
+}
+
+.logo {
+    display: flex;            /* 로고를 가로로 배치하기 위해 flexbox 설정 */
+    align-items: center;
+}
+
+.logo img {
+    height: 30px;       /* 로고 이미지 크기*/
+    margin-right: 8px;  /*로고 이미지, 텍스트 사이 간격*/
+}
+
+.logo span {
+    font-size: 15px;     /* 로고 텍스트 크기 설정 */
+    font-weight: bold;   /* 텍스트 굵게 표시*/
+}
+
+.nav-links {
+    list-style: none;     /* 기본 목록 스타일 제거 (점 없애기) */
+    display: flex;        /* 메뉴 항목들을 가로로 배치 */
+    align-items: center;  /* 메뉴 항목을 수직 중앙 정렬 */
+}
+
+.nav-links li {           /*메뉴 간격 조정 */
+    margin: 0 20px;
+}
+
+.nav-links a {
+    text-decoration: none;   /* 링크 밑줄 제거 */
+    color: black;          /* 글자 색상*/
+    font-size: 15px;
+    font-weight:normal;
+}
+
+.theme-toggle {
+    background: none;     /* 버튼 배경색 제거 */
+    border: none;         /* 버튼 테두리 제거 */
+    font-size: 15px;
+    cursor: pointer;      /*마우스 커서를 포인터로 변경 -> 클릭 가능하게*/
+}
+
+
+</style>
+
+<body>
+  <!--네비게이션 바-->
+    <nav class="navbar">
+
+      <!--로고 영역-->
+        <div class="logo">
+            <img src="SMUC_logo.webp" alt="SMUMC">
+            <span>SMUMC</span>
+        </div>
+
+        <!--네비게이션 메뉴 영역-->
+        <ul class="nav-links">
+            <li><a href="#">PROJECTS</a></li>
+            <li><a href="#">MEMBERS</a></li>
+            <li><a href="#">NOTICE</a></li>
+        
+            <!--해 아이콘-->
+            <li>
+              <button class="theme-toggle">
+                <i class="fas fa-sun"></i>
+            </button>
+          </li>
+        </ul>
+    </nav>
+</body>
+</html>
