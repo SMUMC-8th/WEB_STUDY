@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 20px;
+    background-color: white;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}  
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 40px; /* 로고 크기 */
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 60px;  /* 간격을 더 넓게 조정 */
+    margin-left: auto; /* 오른쪽 정렬 */
+    margin-right: 60px; /* 테마 아이콘과 간격 조정 */
+}
+
+.nav-links li {
+    font-size: 16px;
+}
+
+.theme-toggle img {
+    cursor: pointer;
+    height : 20px;
+}
