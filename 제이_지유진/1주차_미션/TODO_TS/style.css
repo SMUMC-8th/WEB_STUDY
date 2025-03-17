@@ -82,6 +82,7 @@ body{
 .render_container_item{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     text-align: center;
     padding: 8px;
     border-bottom: 1px solid #ddd;
