@@ -45,7 +45,7 @@ cd WEB_STUDY
 (git branch -a로 branch 명을 조회할 수 있습니다!)
 ```
 git branch -a 
-git checkout -b 닉네임_이름
+git checkout 닉네임_이름
 ```
 📌 3. 미션 폴더 생성 & 코드 작성
 ```
