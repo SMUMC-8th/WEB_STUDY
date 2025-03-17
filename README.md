@@ -45,7 +45,7 @@ cd WEB_STUDY
 (git branch -a로 branch 명을 조회할 수 있습니다!)
 ```
 git branch -a 
-git checkout -b 닉네임_이름
+git checkout 닉네임/이름
 ```
 📌 3. 미션 폴더 생성 & 코드 작성
 ```
@@ -55,7 +55,7 @@ mkdir -p 닉네임_이름/n주차_미션/미션1
 ```
 git add .
 git commit -m "FEAT: n주차 미션1 완료"
-git push origin 닉네임_이름
+git push origin 닉네임/이름
 ```
 📌 5. GitHub에서 PR(Pull Request) 요청
 
