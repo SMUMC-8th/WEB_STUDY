@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> <!-- 문서의 언어를 한국어(ko)로 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹을 위한 뷰포트 설정-->
+    <link rel="stylesheet" href="week1_mission.css"> <!-- CSS 파일 연결 -->
+    <title>Week1_Mission1</title> <!-- 웹페이지 제목 설정 -->
+    <script src="week1_mission.js"></script>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <p>UMC Study Plan</p>
+    </div>
+
+    <!--main-->
+    <main class="main-container">
+
+        <!--textbox-->
+        <input type="text" id="todoInput" placeholder="스터디 계획을 작성해보세요!" onkeydown="keyCodeCheck()">
+
+        <!--할 일 & 해낸 일 리스트-->
+        <article class="article">
+             <!--할 일 리스트-->
+            <section class="todo">
+                <p>해야 할 일</p>
+                <ul id="todoList"></ul> <!-- 할 일이 추가될 공간 -->
+            </section>
+
+
+            <!--해낸 일 리스트-->
+            <section class="completed">
+                <p>해낸 일</p>
+                <ul id="completedList"></ul> <!-- 완료된 할 일이 이동할 공간 -->
+            </section>
+        </article>
+
+    </main>
+</body>
+</html>
