@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Mission2</title>
+    <style>
+
+
+        /*모든 요소에 기본 마진, 패딩 제거, 박스 크기를 설정*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /*메인 컨테이너: grid를 사용해서 전체 페이지 레이아웃 구성*/
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;        /*Header와 Memu의 가로 비율*/
+            grid-template-rows: 0.8fr 3fr 3fr 1fr;   /* 각 행(세로)의 높이 비율 */
+            grid-template-areas:
+                "header menu"                        /* 첫 번째 행: HEADER와 MENU */
+                "hero hero"                          /* 두 번째 행: HERO*/
+                "content content"                    /* 세 번째 행: MAIN + IMAGE + EXTRA */
+                "banner banner";                     /* 세 번째 행: MAIN + IMAGE + EXTRA */
+            height: 100vh;
+        }
+
+        /* 공통 스타일: 모든 박스에 동일하게 적용 */
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* 상단 영역 */
+        .header { grid-area: header; background: #111a28; }
+        .menu { grid-area: menu; background: #e74c3c; }
+
+
+        /* 히어로 섹션 */
+        .hero { grid-area: hero; background: #4a80c4; }
+
+
+         /* 콘텐츠 영역 : MAIN + IMAGE + EXTRA */
+         .content {
+            grid-area: content;
+            display: grid;
+            grid-template-columns: 2fr 1fr;  /* MAIN이 2배 크도록 설정 */
+            gap: 150px;
+        }
+
+         /* 메인과 사이드 영역 */
+         .main { background: #1e2a3a; display: flex; flex: 2; }
+
+         /* 사이드 영역을 Flex로 구성 */
+        .side {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .image { background: #c1e4e9; color: black; flex: 1.5; }
+        .extra { background: #4cbf92; color: black; flex: 1; }
+
+        /* 배너 */
+        .banner { grid-area: banner; background: #f4c04c; color: black; }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="box header">HEADER</div>
+        <div class="box menu">MENU</div>
+        <div class="box hero">HERO</div>
+
+        
+        <div class="content">
+            <div class="box main">MAIN</div>
+            <div class="side">
+                <div class="box image">IMAGE</div>
+                <div class="box extra">EXTRA</div>
+            </div>
+        </div>
+
+        <div class="box banner">BANNER</div>
+    </div>
+
+</body>
+</html>
