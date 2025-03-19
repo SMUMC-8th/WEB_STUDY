@@ -14,24 +14,25 @@
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
 }  
 
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
+
+@media screen and (max-width: 600px) {
+    .logo-text {
+        display: none;  /* 화면 크기가 600px 이하일 때 글씨 숨기기 */
+    }
 }
 
+
 .logo img {
-    height: 40px; /* 로고 크기 */
+    height: 40px;
     margin-right: 10px;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 60px;  /* 간격을 더 넓게 조정 */
-    margin-left: auto; /* 오른쪽 정렬 */
-    margin-right: 60px; /* 테마 아이콘과 간격 조정 */
+    gap: 60px;  
+    margin-left: auto; 
+    margin-right: 60px; 
 }
 
 .nav-links li {
@@ -39,6 +40,9 @@
 }
 
 .theme-toggle img {
+    width: 20px;  /* 원하는 고정된 너비 */
+    height: 20px; /* 원하는 고정된 높이 */
     cursor: pointer;
-    height : 20px;
 }
+
+
