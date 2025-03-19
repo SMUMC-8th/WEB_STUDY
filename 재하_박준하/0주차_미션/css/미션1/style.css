@@ -1,0 +1,44 @@
+nav {
+	background-color: lightgray;
+	height: 40px;
+	padding: 24px;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+#left-box {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+}
+#right-box {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: right;
+}
+
+div > span {
+	padding: 8px 16px;
+	font-size: 14px bold;
+}
+
+img {
+	width: 30px;
+}
+
+@media (max-width: 768px) {
+	#smumc {
+		display: none;
+	}
+	#right-box {
+		justify-content: space-between;
+	}
+	div > span {
+		font: 10px normal;
+	}
+	img {
+		width: 4vw;
+	}
+  }
