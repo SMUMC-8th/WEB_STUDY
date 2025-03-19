@@ -1,3 +1,8 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
 .container{
     display: grid;
     grid-template-rows: auto auto minmax(0, 1fr) auto;
@@ -36,7 +41,6 @@
 .c-main{
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
 }
 
 .main{
@@ -49,8 +53,9 @@
 }
 
 .c-rightMain{
-    display: flex;
+    display: grid;
     flex-direction: column;
+
 }
 
 .image{
