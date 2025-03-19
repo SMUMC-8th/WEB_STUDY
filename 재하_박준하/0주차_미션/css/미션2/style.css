@@ -6,13 +6,13 @@
 	grid-template-rows: repeat(6, 1fr);
 	grid-template-columns: repeat(4, 4fr);
 }
+
 .item1 {
 	grid-row: 1/2;
 	grid-column: 1/5;
 	display: flex;
-	text-align: center;
 }
-header {
+.item1 > header {
 	flex-grow: 1;
 	flex-basis: 0%;
 
@@ -22,7 +22,7 @@ header {
 
 	background-color: black;
 }
-nav {
+.item1 > nav {
 	flex-grow: 3;
 	flex-basis: 0%;
 	
