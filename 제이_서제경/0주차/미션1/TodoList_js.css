@@ -4,13 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #EEF2F8  
 }
 
 
 /* 전체 페이지의 기본 폰트 설정 */
 body {
     font-family: Arial, sans-serif;
+    background-color: #ebeff5; 
 }
 
 
@@ -19,24 +19,20 @@ body {
     display: flex;             /*header 요소를 Flexbox 컨테이너로 만들어줌*/
     align-items: center;       /*세로 방향 중앙 정렬*/
     justify-content: center;   /*가로 방향 중앙 정렬*/
+    height: 200px;   /*header 부분의 높이 설정*/
 
-    height: 300px;   /*header 부분의 높이 설정*/
-
-
-    /*글자 디자인*/
     font-weight: bold;
-    font-size: 45px;
+    font-size: 40px;
 
     position: relative; /* ::after의 기준 위치 설정 */
 }
 
 /*Header 아래 밑줄*/
 .header::after{
-    content: ""; /* 가상 요소 생성 */
-    width: 1000px; /* 원하는 가로선 길이 설정 */
-    height:1.5px; /* 선의 두께 */
+    content: "";      /* 가상 요소 생성 */
+    width: 900px;    /* 원하는 가로선 길이 설정 */
+    height:1.5px;     /* 선의 두께 */
     background-color: #c6d5ea; /* 선의 색상 */
-    
     position: absolute;
     bottom: 0; /* 헤더의 아래쪽에 배치 */
     left: 50%; /* 가운데 정렬 */
@@ -45,23 +41,31 @@ body {
 
 
 /*main-container 가로 및 세로, 중앙 정렬 */
-.main-container {
+.todo-container {
     display: flex;             /*header 요소를 Flexbox 컨테이너로 만들어줌*/
     flex-direction: column;    /* 세로 방향 정렬 */
     align-items: center;       /* 가로 중앙 정렬 */
     justify-content: center;   /* 필요 시 세로 중앙 정렬 */
     gap: 20px;                 /* 입력창과 리스트 사이 간격 */
-    height: auto;              /* 높이를 자동으로 설정 */
     padding-top: 10px;
 }
 
 /*text-box 디자인 설정*/
-#todoInput{
-    width : 600px;        /*입력창 너비*/
-    height: 50px;         /*입력창 높이*/
+.todo-container__input{
+    width: 600px; /* 더 넓게 */
+    height: 50px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #a8b9d5; /* 테두리 색 강조 */
+    border-radius: 8px; /* 둥글게 */
+    outline: none;
+    background-color: white; 
+}
 
-    padding: 10px;        /* 내부 여백 */
-    font-size: 15px;      /* 글자 크기 */   
+/* 입력창 포커스 스타일 */
+.todo-container__input:focus {
+    border-color: #5b85c1;
+    box-shadow: 0px 0px 8px rgba(91, 133, 193, 0.4);
 }
 
 /* placeholder 텍스트만 기울어지게 */
@@ -76,20 +80,23 @@ input {
 }
 
 
-/*가로로 정렬*/
-.article {
+/* 할 일 & 해낸 일 리스트 스타일 */
+.render-container {
     display: flex;
-    flex-direction: row;            /* 가로 정렬 */
-    justify-content: space-around;  /* 요소 간격 유지 */
-    width: 80%;                     /* 컨테이너 크기 조절 */
-    max-width: 800px;
-    gap: 20px;                      /* 요소 간의 간격 추가 */
+    justify-content: space-between;
+    width: 50%;
+    max-width: 900px;
+    margin-top: 30px;
 }
 
-
-.todo, .completed {
-    width: 50%; /* 두 개의 섹션을 반씩 차지 */
+/* 각 리스트 제목 스타일 */
+.render-container__title {
     text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #a8b9d5;
+    padding-bottom: 5px;
 }
 
 /* 리스트 앞 점 제거 */
@@ -97,4 +104,20 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+/* 버튼 스타일 */
+.render-container__item-button {
+    background-color: #5b85c1;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 완료 버튼 색상 */
+.render-container__item-button:hover {
+    background-color: #3e6bb2;
 }

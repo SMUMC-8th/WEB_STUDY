@@ -1,0 +1,136 @@
+  /* 모든 요소의 기본 마진과 패딩 제거, 박스 크기를 border-box로 설정 */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* padding, border가 요소의 크기에 포함되도록 설정 */
+}
+
+/* 전체 페이지의 기본 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/*로고는 왼쪽 정렬*/
+.logo {
+    display: flex;            /* 로고를 가로로 배치하기 위해 flex 설정 */
+    align-items: center;      /* 텍스트와 로고 이미지를 수직 중앙 정렬 */
+}
+
+.logo img {
+    height: 30px;       
+    margin-right: 8px;     /*로고 이미지, 텍스트 사이 간격*/
+    transition: all 0.3s ease-in-out; 
+}
+
+/*로고 텍스트 스타일*/
+.logo span {
+    font-size: 15px;     /* 로고 텍스트 크기 설정 */
+    font-weight: bold;   /* 텍스트 굵게 표시*/
+}
+
+
+
+/* 네비게이션 바 기본 스타일 */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* 로고와 네비게이션 메뉴를 양 끝으로 정렬 */
+    align-items: center;
+
+    padding: 15px 50px; /* 좌우 여백 추가 */
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+
+/* 네비게이션 메뉴 스타일 */
+.nav-links {
+    display: flex;
+    flex-grow: 1; /* 로고와의 간격을 자동으로 조정 */
+    justify-content: flex-end; /* 내부 요소들을 오른쪽으로 정렬 */
+    gap: 40px; /* 간격을 적절히 조정 */
+    list-style: none; /* 목록 스타일 제거 */
+    padding-right: 40px; /* 오른쪽 여백 추가 */
+}
+
+
+.nav-links li {
+    text-align: center; /* 모든 항목을 중앙 정렬 */
+}
+
+/* 네비게이션 링크 스타일 */
+.nav-links a {
+    text-decoration: none;   /* 링크 밑줄 제거 */
+    color: black;          /* 글자 색상*/
+    font-size: 15px;
+    font-weight:normal;
+}
+
+/* 해 아이콘 스타일 */
+.theme-toggle {
+    background: none;     /* 버튼 배경색 제거 */
+    border: none;         /* 버튼 테두리 제거 */
+    font-size: 15px;
+
+    cursor: pointer;      /*마우스 커서를 포인터로 변경 -> 클릭 가능하게*/
+    margin-left: auto; /* 버튼을 네비게이션 바의 맨 오른쪽으로 이동 */
+}
+
+
+/* 화면 축소했을 때 변환 */
+/* 화면이 768px 이하일 때 (태블릿 크기) */
+@media (max-width: 768px) {
+
+    .navbar {
+
+        background-color: rgba(255, 255, 255, 0.9);   /* 반투명 */
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);  /* 그림자 효과 추가 */
+    }
+
+    /* 로고 크기 조정 */
+    .logo img {
+        height: 25px;
+    }
+
+    /* SMUMC 사라지게 만들기*/
+    .logo span {
+        display: none;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nav-links li {
+        flex: 1;
+    }
+
+    /* 첫 번째 링크(PROJECTS)는 왼쪽 정렬 */
+    .nav-links li:first-child {
+        text-align: left;
+        margin-left: 50px;
+    }
+
+    /* 두 번째 링크(MEMBERS)는 중앙 정렬 */
+    .nav-links li:nth-child(2) {
+        text-align: center;
+
+    }
+
+    /* 세 번째 링크(NOTICE)는 오른쪽 정렬 */
+    .nav-links li:nth-child(3) {
+        text-align: right;
+        margin-right: 50px;
+    }
+    
+    /* 네비게이션 메뉴 글자 크기 감소 */
+    .nav-links a {
+        font-size: 10px;
+    }
+}
