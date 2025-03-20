@@ -30,7 +30,7 @@ body {
 .todo-container_form {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .todo-container__input {
@@ -58,11 +58,12 @@ body {
 .render-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 50px;
+  margin-top: 20px;
 }
 
 .render-container__title {
-  font-size: 18px;
+  font-size: 10px;
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
@@ -74,8 +75,8 @@ body {
 }
 
 .render-container__title {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 15px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
 }
