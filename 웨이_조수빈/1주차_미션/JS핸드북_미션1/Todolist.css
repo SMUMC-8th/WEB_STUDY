@@ -94,7 +94,8 @@ body {
 }
 
 .btn:hover {
-    box-shadow: 1px 1px 2px lightgrey;
+    box-shadow: 2px 2px 10px lightgrey;
+    cursor: pointer
 }
 
 .btn:focus {

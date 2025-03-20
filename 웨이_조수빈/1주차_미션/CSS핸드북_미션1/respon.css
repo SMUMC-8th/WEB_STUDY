@@ -54,6 +54,13 @@ p {
     width: 300px;
 }
 
+@media screen and (max-width: 960px) {
+    .logo > p {
+        display: none;
+    }
+}
+
+
 @media screen and (max-width: 768px){ 
     .fs-50 {
         font-size: 40px;
@@ -68,6 +75,11 @@ p {
 @media screen and (max-width : 576px){
     main.d-flex {
         flex-direction: column;
+    }
+
+    header > nav {
+        justify-content: space-between;
+        gap: 0;
     }
 
 }
