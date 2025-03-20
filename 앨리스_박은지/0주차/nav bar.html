@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        height: 80px;
+        background-color: #fff;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-container img {
+        width: 30px;
+        height: auto;
+        max-height: 30px;
+        margin-right: 10px;
+      }
+
+      .logo-container a {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        font-size: 18px;
+        text-decoration: none;
+        color: black;
+        font-weight: 500;
+      }
+
+      @media (max-width: 600px) {
+        nav {
+          padding: 0 15px;
+        }
+
+        .nav-links {
+          gap: 10px;
+        }
+
+        .logo-container a {
+          font-size: 20px;
+        }
+
+        .nav-links a {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-container">
+        <img
+          src="C:\Users\amu60\OneDrive\바탕 화면\main-logo.webp"
+          alt="Logo"
+        />
+        <a href="#">SMUMC</a>
+      </div>
+
+      <div class="nav-links">
+        <a href="#">PROJECTS</a>
+        <a href="#">MEMBERS</a>
+        <a href="#">NOTICE</a>
+      </div>
+    </nav>
+  </body>
+</html>

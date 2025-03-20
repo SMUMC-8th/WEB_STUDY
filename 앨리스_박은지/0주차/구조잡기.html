@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .container1 {
+        display: flex;
+        width: 100%;
+        position: relative;
+
+        height: 10%;
+        margin-bottom: 0;
+      }
+
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .b1 {
+        width: 35%;
+        background-color: black;
+        color: aliceblue;
+      }
+
+      .b2 {
+        width: 65%;
+        background-color: rgb(203, 84, 84);
+        color: aliceblue;
+      }
+
+      .b3 {
+        width: 100%;
+        height: 30%;
+        background-color: rgb(21, 111, 190);
+        color: aliceblue;
+        margin-top: 0;
+      }
+
+      .container2 {
+        display: flex;
+        flex-grow: 1;
+        align-items: stretch;
+      }
+
+      .b4 {
+        width: 30%;
+        background-color: rgb(15, 15, 68);
+        color: aliceblue;
+      }
+
+      .image-extra-container {
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+      }
+
+      .b5 {
+        background-color: rgb(148, 234, 214);
+        color: black;
+        height: 50%;
+      }
+
+      .b6 {
+        background-color: rgb(45, 155, 129);
+        color: black;
+        height: 50%;
+      }
+
+      .spacer {
+        flex-grow: 1;
+      }
+
+      .b7 {
+        width: 100%;
+        height: 10%;
+        background-color: rgb(234, 223, 75);
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container1">
+      <div class="box b1">HEADER</div>
+      <div class="box b2">MENU</div>
+    </div>
+    <div class="box b3">HERO</div>
+
+    <div class="container2">
+      <div class="box b4">MAIN</div>
+      <div class="spacer"></div>
+      <div class="image-extra-container">
+        <div class="box b5">IMAGE</div>
+        <div class="box b6">EXTRA</div>
+      </div>
+    </div>
+    <div class="box b7">BANNER</div>
+  </body>
+</html>

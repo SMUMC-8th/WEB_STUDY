@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>할 일 목록</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Noto Sans KR", "Arial", sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      h2 {
+        margin: 15px 0 10px 0;
+        color: #444;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #eee;
+      }
+
+      .input-group {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      #todo-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+        font-size: 16px;
+      }
+
+      #add-button {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      #add-button:hover {
+        background-color: #45a049;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      .todo-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .todo-item:last-child {
+        border-bottom: none;
+      }
+
+      .todo-item input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      .todo-item .todo-text {
+        flex: 1;
+      }
+
+      .completed-item .todo-text {
+        color: #777;
+      }
+
+      .section {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #fafafa;
+        border-radius: 5px;
+      }
+
+      .complete-button {
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .complete-button:hover {
+        background-color: #0b7dda;
+      }
+
+      .delete-button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .delete-button:hover {
+        background-color: #d32f2f;
+      }
+
+      .empty-list {
+        text-align: center;
+        color: #999;
+        padding: 10px 0;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>할 일 관리</h1>
+      <div class="input-group">
+        <input type="text" id="todo-input" placeholder="할 일을 입력하세요" />
+        <button id="add-button">추가</button>
+      </div>
+
+      <div class="section">
+        <h2>해야 할 일</h2>
+        <ul id="pending-list">
+          <li class="empty-list">해야 할 일이 없습니다.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>해낸 일</h2>
+        <ul id="completed-list">
+          <li class="empty-list">완료된 일이 없습니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const todoInput = document.getElementById("todo-input");
+        const addButton = document.getElementById("add-button");
+        const pendingList = document.getElementById("pending-list");
+        const completedList = document.getElementById("completed-list");
+
+        // 로컬 스토리지에서 할 일 목록 가져오기
+        let pendingTodos =
+          JSON.parse(localStorage.getItem("pendingTodos")) || [];
+        let completedTodos =
+          JSON.parse(localStorage.getItem("completedTodos")) || [];
+
+        // 화면에 할 일 목록 표시
+        function renderTodos() {
+          // 할 일 목록 초기화
+          pendingList.innerHTML = "";
+          completedList.innerHTML = "";
+
+          // 해야 할 일이 없는 경우
+          if (pendingTodos.length === 0) {
+            const emptyPending = document.createElement("li");
+            emptyPending.className = "empty-list";
+            emptyPending.textContent = "해야 할 일이 없습니다.";
+            pendingList.appendChild(emptyPending);
+          } else {
+            // 해야 할 일 목록 표시
+            pendingTodos.forEach(function (todo, index) {
+              const todoItem = document.createElement("li");
+              todoItem.className = "todo-item";
+
+              const todoText = document.createElement("span");
+              todoText.className = "todo-text";
+              todoText.textContent = todo.text;
+
+              const completeButton = document.createElement("button");
+              completeButton.className = "complete-button";
+              completeButton.textContent = "완료";
+              completeButton.addEventListener("click", function () {
+                completeTodo(index);
+              });
+
+              todoItem.appendChild(todoText);
+              todoItem.appendChild(completeButton);
+              pendingList.appendChild(todoItem);
+            });
+          }
+
+          // 완료된 일이 없는 경우
+          if (completedTodos.length === 0) {
+            const emptyCompleted = document.createElement("li");
+            emptyCompleted.className = "empty-list";
+            emptyCompleted.textContent = "완료된 일이 없습니다.";
+            completedList.appendChild(emptyCompleted);
+          } else {
+            // 완료된 일 목록 표시
+            completedTodos.forEach(function (todo, index) {
+              const todoItem = document.createElement("li");
+              todoItem.className = "todo-item completed-item";
+
+              const todoText = document.createElement("span");
+              todoText.className = "todo-text";
+              todoText.textContent = todo.text;
+
+              const deleteButton = document.createElement("button");
+              deleteButton.className = "delete-button";
+              deleteButton.textContent = "삭제";
+              deleteButton.addEventListener("click", function () {
+                deleteCompletedTodo(index);
+              });
+
+              todoItem.appendChild(todoText);
+              todoItem.appendChild(deleteButton);
+              completedList.appendChild(todoItem);
+            });
+          }
+        }
+
+        // 할 일 추가
+        function addTodo() {
+          const text = todoInput.value.trim();
+          if (text === "") return;
+
+          pendingTodos.push({
+            text: text,
+            timestamp: new Date().getTime(),
+          });
+
+          saveTodos();
+          todoInput.value = "";
+          renderTodos();
+        }
+
+        // 할 일 완료 처리
+        function completeTodo(index) {
+          // 완료된 할 일을 completedTodos 배열로 이동
+          const completedTodo = pendingTodos.splice(index, 1)[0];
+          completedTodos.push(completedTodo);
+
+          saveTodos();
+          renderTodos();
+        }
+
+        // 완료된 할 일 삭제
+        function deleteCompletedTodo(index) {
+          completedTodos.splice(index, 1);
+          saveTodos();
+          renderTodos();
+        }
+
+        // 로컬 스토리지에 할 일 목록 저장
+        function saveTodos() {
+          localStorage.setItem("pendingTodos", JSON.stringify(pendingTodos));
+          localStorage.setItem(
+            "completedTodos",
+            JSON.stringify(completedTodos)
+          );
+        }
+
+        // 이벤트 리스너 등록
+        addButton.addEventListener("click", addTodo);
+        todoInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addTodo();
+          }
+        });
+
+        // 초기 할 일 목록 렌더링
+        renderTodos();
+      });
+    </script>
+  </body>
+</html>
