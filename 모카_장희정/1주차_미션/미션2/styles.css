@@ -47,7 +47,7 @@ body {
     justify-content: center;
 }
 
-/* HERO 영역 */
+/* HERO 영역 - 수직 중앙 정렬 */
 .hero {
     background-color: #4b8eda;
     color: white;
@@ -55,11 +55,15 @@ body {
     padding: 50px;
     font-size: 24px;
     font-weight: bold;
-    flex: 1;
+    flex-grow: 1; /* HERO가 남은 공간을 균등하게 차지하도록 설정 */
     width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
 }
 
-/* MAIN + 공백 + IMAGE + EXTRA 섹션 */
+
+
 .content {
     display: grid;
     grid-template-columns: 2fr 0.5fr 1fr;
