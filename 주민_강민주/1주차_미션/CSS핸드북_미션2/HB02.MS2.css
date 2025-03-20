@@ -7,7 +7,7 @@ body{
     display: grid;
     grid-template-rows: auto auto minmax(0, 1fr) auto;
     grid-template-columns: 1fr;
-    height: 465px;
+    height: 100vh;
 }
 
 .c-head{

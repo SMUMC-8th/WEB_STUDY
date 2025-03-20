@@ -46,6 +46,6 @@ body{
 
 @media(max-width:600px){
     .nav-logo-container p{
-        max-width: 0;
+        max-width: 960px;
     }
 }
