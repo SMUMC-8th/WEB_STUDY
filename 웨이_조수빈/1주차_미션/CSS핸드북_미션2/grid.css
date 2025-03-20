@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard';
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 50px 200px 1fr 1fr 50px;
+    grid-template-areas:
+        "header menu menu menu"
+        "hero  hero hero hero"
+        "main main . image"
+        "main main . extra"
+        "banner banner banner banner";
+        height: 100vh; /* 화면 높이에 맞게 설정 */
+        min-height: 100vh; /* 최소 높이 설정 */
+}
+
+
+.header, .menu, .hero, .main, .image, .extra, .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+
+
+.header { 
+    background-color: lightslategray; grid-area: header; 
+}
+
+.menu {
+    background-color: purple; grid-area: menu; 
+}
+
+.hero { 
+    background-color: lightskyblue; grid-area: hero;
+}
+
+.main { 
+    background-color: lightgreen; grid-area: main;
+}
+
+.image {
+    background-color: lavender; grid-area: image;
+}
+
+.extra { 
+    background-color: palevioletred; grid-area: extra;
+}
+
+.banner { 
+    background-color: lightsalmon; grid-area: banner;
+}
