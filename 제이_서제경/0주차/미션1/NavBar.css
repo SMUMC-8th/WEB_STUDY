@@ -84,7 +84,7 @@ body {
 
 /* 화면 축소했을 때 변환 */
 /* 화면이 768px 이하일 때 (태블릿 크기) */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
 
     .navbar {
 
