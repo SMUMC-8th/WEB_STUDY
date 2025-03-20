@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: rgb(200, 210, 231);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: 50px;
+    padding: 50px;
+}
+
+/* hr 스타일 */
+hr {
+    border: 0;
+    border-top: 1px solid #a0b2df;
+    margin: 10px auto; /* 수평 중앙 정렬 */
+}
+
+/* 첫 번째 hr (일반 hr) */
+.hr1 {
+    width:900px; /* 부모 요소 너비의 80%로 설정 */
+}
+
+/* 두 번째 hr (스타일이 다른 hr) */
+.hr2 {
+    width: 40%; /* 부모 요소 너비의 40%로 설정 */
+
+}
+
+/* 세 번째 hr (스타일이 다른 hr) */
+.hr3 {
+    width: 40%; /* 부모 요소 너비의 40%로 설정 */
+}
+
+/* input 스타일 */
+input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 50px;
+    font-size: 20px;
+    border: 1px solid #000000;
+    outline: none;
+    margin-top: 30px;
+    background-color: #ffffff;
+    padding-left: 10px; /* 글씨 바 조금 띄우기 */
+    font-style: italic;
+    color: #e2dfdf;
+}
+
+/* tasks의 flexbox 설정 */
+.tasks {
+    display: flex;
+    justify-content: space-between; /* 양쪽으로 배치 */
+    align-items: center;
+    padding: 20px;
+    width: 80%; /* 부모 요소 너비의 80%로 설정 */
+    margin: 0 auto;
+}
+
+.task {
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 10px;
+}
+
+.todo {
+    color: rgb(0, 0, 10);
+}
+
+.done {
+    color: rgb(0, 10, 0);
+}
