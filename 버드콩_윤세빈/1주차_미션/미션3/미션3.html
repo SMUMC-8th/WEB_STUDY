@@ -11,13 +11,23 @@
         <div class="title">UMC Study Plan</div>
     </header>
     <hr class="hr1">
-    <input type="text" placeholder="스터디계획을 작성해보세요!">
+    <input type="text" id="taskInput" placeholder="스터디계획을 작성해보세요!">
     
-   <div class="tasks">
-        <div class="task todo">해야할 일</div>
-        <hr class="hr2">
-        <div class="task done">해낸 일</div>
-        <hr class="hr3">
+    <div class ="tasks">
+        <div class="task-container">
+            <div class="task todo">해야할 일</div>
+            <hr class="hr2"> <!-- 해야할 일 아래에 선 추가 -->
+            <ul id="todoList"></ul>
+        </div>
+   
+        <div class="task-container">
+            <div class="task todo">해낸 일</div>
+            <hr class="hr3"> <!-- 해야할 일 아래에 선 추가 -->
+            <ul id="doneList"></ul>
+        </div>
     </div>
+
+    <script src="미션3.js"></script>
+
 </body>
 </html>
