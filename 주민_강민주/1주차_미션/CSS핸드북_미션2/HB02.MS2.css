@@ -1,0 +1,77 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    grid-template-columns: 1fr;
+    height: 100vh;
+}
+
+.c-head{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header{
+    background-color: rgb(2, 30, 58);
+    color: white;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+}
+
+.menu{
+    background-color: rgb(235, 74, 74);
+    color: white;
+    width: 70%;
+    padding: 20px;
+    text-align: center;
+}
+
+.hero{
+    background-color: skyblue;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.c-main{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.main{
+    background-color: midnightblue;
+    color: white;
+    padding: 50px;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+.c-rightMain{
+    display: grid;
+    flex-direction: column;
+
+}
+
+.image{
+    background-color: aquamarine;
+    padding: 40px;
+    text-align: center;
+}
+
+.extra{
+    background-color: darkcyan;
+    padding: 40px;
+    text-align: center;
+}
+
+.banner{
+    background-color: bisque;
+    padding: 30px;
+    text-align: center;
+}

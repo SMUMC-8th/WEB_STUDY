@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: lemonchiffon;
+}
+
+.todo{
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.title{
+    margin-bottom: 16px;
+}
+
+.form{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.inputBox{
+    flex: 1;
+    padding: 8px;
+    border: 1px solid lightslategray;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.borderRd{
+    border-radius: 5px;
+    border: none;
+}
+
+.addBtn{
+    background-color: rgb(74, 184, 74);
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addBtn:hover{
+    background-color: rgb(51, 119, 51);
+}
+
+.box{
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: cadetblue;
+}
+
+box2{
+    display : flex;
+    gap: 50px;
+}
+
+.c-list{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.list{
+    width:100%;
+    text-align: left;
+}
+
+.listName{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.todoList{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f3f5;
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .itemText {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .itemBtn {
+    background-color: #4ab84a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .itemBtn:hover {
+    background-color: #337b38;
+  }
+  
+  .itemBtn.delete {
+    background-color: #dc3545;
+  }
+  
+  .itemBtn.delete:hover {
+    background-color: #692028;
+  }
+  

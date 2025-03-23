@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="HB04.MS1.css" rel="stylesheet">
+    <script type="module" src="./dist/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="todo"> 
+            <h2 class="title">JUMIN TODO</h2>
+            <form class="form">
+                <input id="todoInput" class="inputBox"
+                placeholder="할 일 입력">
+                <button type="submit" id="todoForm" class="addBtn borderRd">할 일 추가</button>
+            </form>
+            <main class="c-list">
+                <article class="list">
+                    <h3 class="listName">할 일</h3>
+                    <ul id="todoList">
+                    </ul>
+                </article>
+                <article class="list">
+                    <h3 class="listName">완료</h3>
+                    <ul id="doneList">
+                    </ul>
+                </article>
+            </main>
+        </header>
+    </div>
+</body>
+</html>
