@@ -4,7 +4,7 @@ const todoForm = document.getElementById("todo-form") as HTMLFormElement;
 const todoList = document.getElementById("todo-list") as HTMLUListElement;
 const doneList = document.getElementById("done-list") as HTMLUListElement;
 
-// 2. 할 일이 어떻게 생긴애인지 Type을 정의의
+// 2. 할 일 및 완료된 작업을 저장할 배열열
 type Todo = {
   id: number;
   text: string;
@@ -29,12 +29,12 @@ const renderTasks = (): void => {
   });
 };
 
-//3. 할 일 텍스트 입력 처리 함수. (공백 잘라줌)
+//3. 할 일 텍스트 입력 처리 함수
 const getTodoText = (): string => {
   return todoInput.value.trim();
 };
 
-// 4. 할 일 추가 처리 함수
+// 4. 할 일 추가 함수
 const addTodo = (text: string): void => {
   todos.push({ id: Date.now(), text });
   todoInput.value = "";
