@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: rgb(200, 210, 231);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: 50px;
+    padding: 50px;
+}
+
+/* hr 스타일 */
+hr {
+    border: 0;
+    border-top: 1px solid #a0b2df;
+    margin: 10px auto; /*중앙정렬*/
+}
+
+/* 첫 번째 hr (일반 hr) */
+.hr1 {
+    width: 900px;
+}
+
+/* 두 번째 hr (스타일이 다른 hr) */
+.hr2 {
+    width: 80px;
+
+}
+
+/* 세 번째 hr (스타일이 다른 hr) */
+.hr3 {
+    width: 60px;  
+}
+
+/* input 스타일 */
+input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 50px;
+    font-size: 20px;
+    border: 1px solid #000000;
+    outline: none;
+    margin-top: 30px;
+    background-color: #ffffff;
+    padding-left: 10px; /* 글씨 바 조금 띄우기 */
+    font-style: italic;
+}
+
+
+.tasks {
+    display: flex;
+    justify-content: space-between; /* 좌우 배치 */
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    font-weight: bold;
+    height: 300px; /* 고정 높이 설정 */
+    justify-content: flex-start; /* 상단 정렬 */
+    overflow-y: auto; /* 리스트가 많아지면 스크롤 생성 */
+}
+
+.todo {
+    color: rgb(0, 0, 10);
+}
+
+.done {
+    color: rgb(0, 10, 0);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* 리스트 아이템 스타일 */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    gap:10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color:black; 
+}
+
+/* 버튼 스타일 */
+button {
+    font-size: 14px;
+    padding: 5px 10px;
+    border: none;
+    background: #a0b2df;
+    color: black;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #859ace;
+}

@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding :30px;
+    margin-right: -160px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}  
+
+
+@media screen and (max-width: 600px) {
+    .logo-text {
+        display: none;  /* 화면 크기가 600px 이하일 때 글씨 숨기기 */
+    }
+    .nav-links {
+        display: flex;
+        justify-content: space-evenly;
+        flex: 1;
+        gap: 20px !important;
+        margin-left: auto; 
+        margin-right: 5px;
+    }
+     
+}
+
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    justify-content: flex-end;  
+    gap: 60px;  
+    margin-left: auto; 
+    margin-right: 150px; 
+}
+
+
+.nav-links li {
+    font-size: 16px;
+}
+
+.theme-toggle img {
+    display:flex; 
+    width: 20px;  
+    height: 20px; 
+    cursor: pointer;
+}
+
