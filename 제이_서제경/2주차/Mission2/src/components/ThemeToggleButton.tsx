@@ -10,7 +10,7 @@ export default function ThemeToggleButton() {
     <button
       onClick={toggleTheme}
       className={clsx(
-        "w-13 h-10 flex items-center justify-center rounded-md transition-all text-xl",
+        "w-[50px] h-10 flex items-center justify-center rounded-md transition-all text-xl",
         {
           "bg-black text-white": !isLightMode,
           "bg-white text-black": isLightMode,
