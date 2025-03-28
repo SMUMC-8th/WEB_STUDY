@@ -15,8 +15,8 @@ export default function Worklist({title}: WorklistProps) {
 			return (
 				<li
 					className={theme === THEME.LIGHT
-								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border border-black border-[1px] bg-zinc-100"
-								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border border-black border-[1px] "
+								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] bg-zinc-100"
+								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] "
 					}>
 					<p className="w-full sm:m-1 sm:p-1 text-left">{todo.text}</p>
 					<button 
@@ -35,8 +35,8 @@ export default function Worklist({title}: WorklistProps) {
 			return (
 				<li
 					className={theme === THEME.LIGHT
-								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border border-black border-[1px] bg-zinc-100"
-								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border border-black border-[1px] "
+								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] bg-zinc-100"
+								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] "
 					}>
 					<p className="w-full sm:m-1 sm:p-1 text-left">{doneTodo.text}</p>
 					<button 

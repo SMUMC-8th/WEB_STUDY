@@ -10,8 +10,9 @@ export default function InputForm() {
 	const handleForm = (event: React.FormEvent) => {
 		event.preventDefault();
 		
-		if (inputValue.length > 0) {
-			addTodo(inputValue);
+		const text = inputValue.trim(); 
+		if (text.length > 0) {
+			addTodo(inputValue.trim());
 			setInputValue('');
 		}
 	};
@@ -23,7 +24,7 @@ export default function InputForm() {
 				<input 
 					value={inputValue}
 					onChange={(event) => setInputValue(event.target.value)}
-					className="sm:w-full inline sm:m-2 sm:p-2 border border-black border-[1px] bold text-xs sm:text-xl "
+					className="sm:w-full inline sm:m-2 sm:p-2 border-black border-[1px] bold text-xs sm:text-xl "
 					type="text"
 					placeholder="할 일 입력">
 				</input>
