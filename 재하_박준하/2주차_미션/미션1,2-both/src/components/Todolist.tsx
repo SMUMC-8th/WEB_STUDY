@@ -1,13 +1,23 @@
 import Worklist from "./Worklist";
+import { useTodo } from "../context/TodoContext";
+import { workType } from "./Worklist";
 
 export default function Todolist() {
+	const {todos, doneTodos, completeTodo, deleteTodo} = useTodo();
+
 	return (
-		<article className="flex flex-col sm:flex-row justify-center sm:justify-around itemes-center">
+		<article className="box-border flex flex-col sm:flex-row justify-center sm:justify-around itemes-center">
 			<Worklist 
-				title="할 일">
+				todoArr={todos}
+				todoFunc={completeTodo}
+				type={workType.TODO}
+				>
 			</Worklist>
 			<Worklist 
-				title="완료">
+				todoArr={doneTodos}
+				todoFunc={deleteTodo}
+				type={workType.DONE}
+				>
 			</Worklist>
 		</article>
 	);
