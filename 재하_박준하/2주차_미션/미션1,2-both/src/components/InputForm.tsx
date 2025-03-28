@@ -10,8 +10,9 @@ export default function InputForm() {
 	const handleForm = (event: React.FormEvent) => {
 		event.preventDefault();
 		
-		if (inputValue.length > 0) {
-			addTodo(inputValue);
+		const trimmedInput = inputValue.trim();
+		if (trimmedInput.length > 0) {
+			addTodo(trimmedInput);
 			setInputValue('');
 		}
 	};
