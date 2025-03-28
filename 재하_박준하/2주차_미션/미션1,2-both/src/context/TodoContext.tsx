@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useState } from "react";
 import { createContext } from "react";
 
-type Todo = {
+export type Todo = {
 	id: number;
 	text: string;
 }

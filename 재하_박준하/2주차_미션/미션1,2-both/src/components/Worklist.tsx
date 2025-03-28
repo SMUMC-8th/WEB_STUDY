@@ -1,5 +1,10 @@
-import { useTodo } from "../context/TodoContext";
+import { Todo, useTodo } from "../context/TodoContext";
 import { THEME, useTheme } from "../context/ThemeProvider";
+
+enum titleContent {
+	TODO = "할 일",
+	DONE = "완료",
+}
 
 interface WorklistProps {
 	title: string;
@@ -10,8 +15,8 @@ export default function Worklist({title}: WorklistProps) {
 	const {todos, doneTodos, completeTodo, deleteTodo} = useTodo();
 
 	let content = null; 
-	if (title === "할 일") {
-		content = todos.map((todo: {id:number, text:string}) => {
+	if (title === titleContent.TODO) {
+		content = todos.map((todo: Todo) => {
 			return (
 				<li
 					className={theme === THEME.LIGHT
