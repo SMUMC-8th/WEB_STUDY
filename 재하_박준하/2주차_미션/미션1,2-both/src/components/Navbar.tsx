@@ -8,9 +8,10 @@ export default function Navbar() {
 		<nav className="w-full flex justify-end items-center">
 			<button 
 				onClick={toggleTheme}
-				className={theme === THEME.LIGHT
-					? "m-2 p-2 bg-yellow-100 hover:bg-yellow-300 text-white font-bold py-2 px-4 rounded"
-					: "m-2 p-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"}>
+				className={`m-2 p-2 font-bold py-2 px-4 rounded
+					${theme === THEME.LIGHT
+					? " bg-yellow-100 hover:bg-yellow-300"
+					: " bg-gray-500 hover:bg-gray-700"}`}>
 					{theme === THEME.LIGHT ? "☀️" : "🌙"}
 			</button>
 		</nav>

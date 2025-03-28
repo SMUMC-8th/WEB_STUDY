@@ -10,9 +10,8 @@ export default function InputForm() {
 	const handleForm = (event: React.FormEvent) => {
 		event.preventDefault();
 		
-		const text = inputValue.trim(); 
-		if (text.length > 0) {
-			addTodo(inputValue.trim());
+		if (inputValue.length > 0) {
+			addTodo(inputValue);
 			setInputValue('');
 		}
 	};
@@ -29,9 +28,10 @@ export default function InputForm() {
 					placeholder="할 일 입력">
 				</input>
 				<button type="submit" 
-					className={theme ===THEME.LIGHT
-						? "sm:w-[120px] sm:m-2 sm:p-2 bg-green-500 hover:bg-green-700 text-xs sm:text-base text-white"
-						: "sm:w-[120px] sm:m-2 sm:p-2 bg-green-800 hover:bg-green-900 text-xs sm:text-base text-black"}>
+					className={`sm:w-[120px] sm:m-2 sm:p-2 text-xs sm:text-base
+						${theme === THEME.LIGHT
+						? " bg-green-500 hover:bg-green-700 text-white"
+						: " bg-green-800 hover:bg-green-900 text-black"}`}>
 							할 일 추가
 				</button>
 			</article>

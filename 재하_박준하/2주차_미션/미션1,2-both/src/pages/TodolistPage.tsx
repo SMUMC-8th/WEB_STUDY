@@ -10,9 +10,8 @@ export default function TodolistPage() {
 	
 	return (
         <section 
-		  className={theme === THEME.LIGHT 
-		  		? "w-[50%] break-all bg-white" 
-				: "w-[50%] break-all bg-gray-500"}>
+		  className={`w-[50%] break-all
+			${theme === THEME.LIGHT ? " bg-white" : " bg-gray-500"}`}>
 			<Navbar></Navbar>
 			<TodoProvider>
 				<InputForm></InputForm>

@@ -19,16 +19,16 @@ export default function Worklist({title}: WorklistProps) {
 		content = todos.map((todo: Todo) => {
 			return (
 				<li
-					className={theme === THEME.LIGHT
-								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] bg-zinc-100"
-								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] "
+					className={`w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px]
+						${theme === THEME.LIGHT
+						? " bg-zinc-100" : " "}`
 					}>
 					<p className="w-full sm:m-1 sm:p-1 text-left">{todo.text}</p>
 					<button 
 						onClick={() => completeTodo(todo)}
-						className={theme === THEME.LIGHT
-									? 'w-[50px] sm:m-1 sm:p-1 text-white bg-green-500'
-									: 'w-[50px] sm:m-1 sm:p-1 text-black bg-green-700'
+						className={`w-[50px] sm:m-1 sm:p-1
+							${theme === THEME.LIGHT
+							? ' text-white bg-green-500' : ' text-black bg-green-700'}`
 						}>
 							완료
 					</button>
@@ -39,16 +39,15 @@ export default function Worklist({title}: WorklistProps) {
 		content = doneTodos.map((doneTodo: {id:number, text:string}) => {
 			return (
 				<li
-					className={theme === THEME.LIGHT
-								? "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] bg-zinc-100"
-								: "w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px] "
+					className={`w-full sm:m-1 sm:p-1 flex flex-col sm:flex-row items-center border-black border-[1px]
+						${theme === THEME.LIGHT ? " bg-zinc-100" : " "}`
 					}>
 					<p className="w-full sm:m-1 sm:p-1 text-left">{doneTodo.text}</p>
 					<button 
 						onClick={() => deleteTodo(doneTodo)}
-						className={theme === THEME.LIGHT
-									? 'w-[50px] sm:m-1 sm:p-1 text-white bg-red-500'
-									: 'w-[50px] sm:m-1 sm:p-1 text-black bg-red-700'
+						className={`w-[50px] sm:m-1 sm:p-1
+							${theme === THEME.LIGHT
+							? ' text-white bg-red-500': ' text-black bg-red-700'}`
 						}>
 							삭제
 					</button>
