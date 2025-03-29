@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useContext } from "react"
+import { createContext, ReactNode, useState, useContext, useEffect } from "react"
 
 export enum THEME {
 	LIGHT = "LIGHT",
@@ -16,13 +16,19 @@ const ThemeContext
 	= createContext<IThemeContext | undefined>(undefined);
 
 export const ThemeProvider = ({children}: {children: ReactNode}) => {
-	const [theme, setTheme] = useState<THEME>(THEME.LIGHT);
+	const savedTheme = localStorage.getItem('theme') as THEME;
+	// savedTheme이 null or undefined라면 THEME.LIGHT로 초기화
+	const [theme, setTheme] = useState<THEME>(savedTheme ?? THEME.LIGHT);
 
 	const toggleTheme = (): void => {
 		setTheme((prevTheme): THEME =>
 			prevTheme === THEME.LIGHT ? THEME.DARK: THEME.LIGHT
 		);
 	}
+
+	useEffect(() => {
+		localStorage.setItem('theme', theme);
+	}, [theme])
 
 	return (
 		<ThemeContext.Provider value={{theme, toggleTheme}}>
