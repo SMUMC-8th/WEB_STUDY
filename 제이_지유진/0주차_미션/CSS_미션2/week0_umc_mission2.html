@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구조 나누기ㅎㅎ</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+    }
+    html,
+    body {
+      overflow: hidden;
+      height: 100%;
+    }
+    .container {
+      display: flex;
+    }
+    .header {
+      display: flex;
+      box-sizing: border-box;
+      width: 200px;
+      height: 70px;
+      text-align: center;
+      background-color: navy;
+      color: white;
+      font-size: larger;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu {
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      height: auto;
+      background-color: coral;
+      color: white;
+      font-size: larger;
+    }
+    .HERO {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+      height: 300px;
+      color: white;
+      font-size: larger;
+      box-sizing: border-box;
+      background-color: blueviolet;
+    }
+    .middle_container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: auto;
+      height: 300px;
+    }
+    .main {
+      grid-row: span 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: brown;
+      color: white;
+      font-size: larger;
+      box-sizing: border-box;
+    }
+    .main_left {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: auto;
+      background-color: white;
+    }
+    .right {
+      display: grid;
+      grid-column: 2;
+      grid-template-rows: 1fr 1fr;
+      width: auto;
+    }
+    .image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: aqua;
+      font-size: larger;
+    }
+    .extra {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: darkseagreen;
+      font-size: larger;
+    }
+    .BANNER {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      box-sizing: border-box;
+      background-color: violet;
+      width: 100%;
+      height: 100px;
+      font-size: larger;
+    }
+  </style>
+  <body>
+    <div>
+      <div class="container">
+        <div class="header">HEADER</div>
+        <div class="menu">MENU</div>
+      </div>
+      <div class="HERO">HERO</div>
+      <div class="middle_container">
+        <div class="main">MAIN</div>
+        <div class="main_left">
+          <div class="right">
+            <div class="image">IMAGE</div>
+            <div class="extra">EXTRA</div>
+          </div>
+        </div>
+      </div>
+      <div class="BANNER">BANNER</div>
+    </div>
+  </body>
+</html>
