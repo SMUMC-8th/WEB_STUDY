@@ -2,6 +2,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSignup } from "../apis/auth";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -21,6 +22,7 @@ const schema = z
 type FormFields = z.infer<typeof schema>;
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -41,11 +43,20 @@ export default function SignUp() {
 
     const response = await postSignup(rest);
     console.log(response);
+    if (response.statusCode === 201) {
+      navigate("/login");
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4 text-white">
-      <div className="w-[300px] p-[10px] rounded-lg shadow-lg">
+      <div className="p-[10px] rounded-lg shadow-lg">
+        <div className="flex justify-between items-center mb-6">
+          <button onClick={() => navigate(-1)} className="text-xl">
+            {"<"}
+          </button>
+          <p className="text-3xl font-bold">회원가입</p>
+        </div>
         <div className="flex flex-col gap-3">
           <input
             {...register("email")}

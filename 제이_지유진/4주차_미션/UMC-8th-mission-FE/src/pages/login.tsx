@@ -27,6 +27,9 @@ export default function Login() {
       const response = await postSignin(values);
       setItem(response.data.accessToken);
       console.log(response);
+      if (response.statusCode === 201) {
+        navigate("/my");
+      }
     } catch (error) {
       alert(error?.message);
       console.error("로그인 실패:", error);
@@ -35,7 +38,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4 text-white">
-      <div className="w-[300px] p-[10px] rounded-lg shadow-lg">
+      <div className="p-[10px] rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-6">
           <button onClick={() => navigate(-1)} className="text-xl">
             {"<"}

@@ -5,6 +5,7 @@ export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
   headers: {
     Authorization:
-      "Bearer " + localStorage.getItem(LOCAL_STORAGE_KEY.accesToken),
+      "Bearer " +
+      JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.accessToken) as string),
   },
 });
