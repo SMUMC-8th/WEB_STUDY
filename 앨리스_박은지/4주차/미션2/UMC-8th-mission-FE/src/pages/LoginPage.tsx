@@ -1,9 +1,13 @@
-import React from "react";
+import { LOCAL_STORAGE_KEY } from "../constants/key";
 import useForm from "../hooks/useForm";
 import { validateSignin, UserSigninInformation } from "../utils/validate";
-import { Link } from "react-router-dom";
+import { postSignin } from "../apis/auth.ts";
+import { Link, useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const { errors, touched, getInputProps, handleSubmit } =
     useForm<UserSigninInformation>({
       initialValues: {
@@ -13,12 +17,24 @@ function LoginPage() {
       validate: validateSignin,
       onSubmit: async (values) => {
         try {
-          console.log(values);
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            console.error(error.message);
+          const response = await postSignin(values);
+          if (response.status && response.data) {
+            localStorage.setItem(
+              LOCAL_STORAGE_KEY.accessToken,
+              response.data.accessToken
+            );
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+            navigate("/");
           } else {
-            console.error("An unknown error occurred");
+            alert(response.message || "로그인에 실패했습니다.");
+          }
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            const errorMessage =
+              error.response?.data?.message || "로그인에 실패했습니다.";
+            alert(errorMessage);
+          } else {
+            alert("알 수 없는 오류가 발생했습니다.");
           }
         }
       },

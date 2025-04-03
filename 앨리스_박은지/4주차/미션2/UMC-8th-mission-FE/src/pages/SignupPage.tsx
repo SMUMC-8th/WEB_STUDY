@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { Link, useNavigate } from "react-router-dom";
+import { postSignup } from "../apis/auth";
+import { AxiosError } from "axios";
 import {
   emailSchema,
   passwordSchema,
@@ -13,13 +14,14 @@ import {
 } from "../utils/schema";
 
 function SignupPage() {
-  const [step, setStep] = useLocalStorage("signup_step", 1);
-  const [email, setEmail] = useLocalStorage("signup_email", "");
-  const [password, setPassword] = useLocalStorage("signup_password", "");
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-  const [isComplete, setIsComplete] = useLocalStorage("signup_complete", false);
-  const [nickname, setNickname] = useLocalStorage("signup_nickname", "");
+  const [isComplete, setIsComplete] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   // Step 1: Email Form
   const {
@@ -78,19 +80,34 @@ function SignupPage() {
 
   const onNicknameSubmit = async (data: NicknameForm) => {
     try {
-      // TODO: API 호출
-      console.log({
-        email: data.email,
-        password: data.password,
-        nickname: data.nickname,
+      console.log("회원가입 시도:", {
+        email: email,
+        password: password,
+        name: data.nickname,
       });
-      setNickname(data.nickname);
-      setIsComplete(true);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
+
+      const response = await postSignup({
+        email: email,
+        password: password,
+        name: data.nickname,
+      });
+
+      if (response) {
+        setNickname(data.nickname);
+        setIsComplete(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       } else {
-        console.error("An unknown error occurred");
+        alert("회원가입에 실패했습니다.");
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.message || "회원가입에 실패했습니다.";
+        alert(errorMessage);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
       }
     }
   };

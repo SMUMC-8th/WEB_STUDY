@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
+export const useLocalStorage = (key: string) => {
+  const setItem = (value: unknown) => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-function useLocalStorage<T>(key: string, initialValue: T) {
-  // 초기값 설정
-  const [storedValue, setStoredValue] = useState<T>(() => {
+  const getItem = () => {
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      return item ? JSON.parse(item) : null;
     } catch (error) {
       console.error(error);
-      return initialValue;
     }
-  });
+  };
 
-  // 값이 변경될 때마다 localStorage 업데이트
-  useEffect(() => {
+  const removeItem = () => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
+      window.localStorage.removeItem(key);
     } catch (error) {
       console.error(error);
     }
-  }, [key, storedValue]);
-
-  return [storedValue, setStoredValue] as const;
-}
-
-export default useLocalStorage;
+  };
+  return { setItem, getItem, removeItem };
+};
