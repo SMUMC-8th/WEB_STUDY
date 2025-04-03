@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   server: {
-    port: 5177,
+    port: 5173,
     proxy: {
       "/movie": {
-        target: "http://localhost:5177",
+        target: "http://localhost:5173",
         changeOrigin: true,
         rewrite: (path) => path,
       },

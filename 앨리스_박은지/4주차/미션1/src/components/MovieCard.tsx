@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import profileImage from "../assets/Profile.png";
 
 interface MovieCardProps {
   id: number;
@@ -22,8 +23,16 @@ const MovieCard = ({
     <Link to={`/movie/${id}`} className="movie-card">
       <div className="movie-poster">
         <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : profileImage
+          }
           alt={title}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = profileImage;
+          }}
         />
       </div>
       <div className="movie-overlay">

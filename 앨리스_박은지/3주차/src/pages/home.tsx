@@ -60,7 +60,36 @@ const Home = () => {
   };
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="container">
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              className={`pagination-button ${
+                currentPage === 1 ? "disabled" : ""
+              }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              이전
+            </button>
+            <span className="pagination-info">
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              className={`pagination-button ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              다음
+            </button>
+          </div>
+        )}
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (error) {

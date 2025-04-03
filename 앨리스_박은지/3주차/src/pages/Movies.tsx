@@ -63,53 +63,51 @@ const Movies = () => {
     setSearchParams({ page: newPage.toString() });
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <p className="error-message">{error}</p>
-        <button className="retry-button" onClick={fetchMovies}>
-          다시 시도
-        </button>
-      </div>
-    );
-  }
+  const renderPagination = () => (
+    <div className="pagination">
+      <button
+        className={`pagination-button ${currentPage === 1 ? "disabled" : ""}`}
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        이전
+      </button>
+      <span className="pagination-info">
+        {currentPage} / {totalPages}
+      </span>
+      <button
+        className={`pagination-button ${
+          currentPage === totalPages ? "disabled" : ""
+        }`}
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        다음
+      </button>
+    </div>
+  );
 
   return (
     <div className="container">
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            className={`pagination-button ${
-              currentPage === 1 ? "disabled" : ""
-            }`}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            이전
-          </button>
-          <span className="pagination-info">
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            className={`pagination-button ${
-              currentPage === totalPages ? "disabled" : ""
-            }`}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            다음
+      {totalPages > 1 && renderPagination()}
+      {isLoading ? (
+        <div className="loading-content">
+          <LoadingSpinner />
+        </div>
+      ) : error ? (
+        <div className="error-container">
+          <p className="error-message">{error}</p>
+          <button className="retry-button" onClick={fetchMovies}>
+            다시 시도
           </button>
         </div>
+      ) : (
+        <div className="movie-grid">
+          {movies.map((movie: TMovie, idx) => (
+            <MovieCard {...movie} key={movie.id || idx} />
+          ))}
+        </div>
       )}
-      <div className="movie-grid">
-        {movies.map((movie: TMovie, idx) => (
-          <MovieCard {...movie} key={movie.id || idx} />
-        ))}
-      </div>
     </div>
   );
 };

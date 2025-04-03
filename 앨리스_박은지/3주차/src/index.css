@@ -2,24 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .navbar {
   background-color: #1a1a1a;
   padding: 1rem 0;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  width: 100%;
+  padding: 0;
   display: flex;
   gap: 2rem;
+  justify-content: flex-start;
+  margin-left: 100px;
 }
 
 .nav-link {
@@ -123,7 +140,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 8px;
@@ -145,9 +161,11 @@ main {
   color: white;
   font-size: 0.75rem;
   line-height: 1.2;
+  padding: 0 1rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   text-overflow: ellipsis;
 }
 
@@ -157,10 +175,10 @@ main {
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 8px;
   position: sticky;
   z-index: 10;
+  top: 0;
+  background-color: transparent;
 }
 
 .pagination-button {
@@ -190,12 +208,13 @@ main {
   text-align: center;
 }
 
-.loading-container {
+.loading-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 50vh;
+  margin-top: 2rem;
 }
 
 .loading-spinner {
@@ -350,47 +369,42 @@ main {
 }
 
 .credits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .credit-item {
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-}
-
-.credit-item:hover {
-  transform: translateY(-5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 150px;
 }
 
 .credit-image {
-  width: 100%;
-  height: 160px;
+  width: 150px;
+  height: 225px;
   object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .credit-info {
-  padding: 0.75rem;
-  text-align: center;
+  width: 100%;
 }
 
 .credit-info h3 {
-  margin: 0 0 0.25rem;
-  font-size: 0.9rem;
-  color: #1a1a1a;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .credit-info p {
-  margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #666;
   white-space: nowrap;
   overflow: hidden;
