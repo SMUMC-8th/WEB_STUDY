@@ -1,42 +1,12 @@
-import axios from "axios";
-import {useEffect, useState} from "react"
+ import {useState} from "react"
 import MovieCard from "../components/movieCard";
-import { TMovie } from "../components/movieCard";
 import { useParams } from "react-router-dom";
+import useFetchMovies from "../hooks/uesFetchMovies";
 
 const Movies=()=>{
-    const [data, setData]=useState<TMovie[]>([]);
     const {category}=useParams();
-    const [loading, setLoading]=useState(true);
-    const [error, setError]=useState(false);
     const [page, setpage]=useState(1);
-
-    useEffect(()=>{
-        const fetchMovies=async()=>{
-            try{
-                setLoading(true);
-                const response=await axios(
-                    `https://api.themoviedb.org/3/movie/${category}?language=en-EN&page=${page}`,{
-                        headers: {
-                            Authorization: `Bearer ${
-                                import.meta.env.VITE_THDB_TOKEN}`,
-                        },
-                    }
-                );
-                setData(response.data.results);
-            }
-            catch(err){
-                console.error("영화 불러오기 실패", err);
-                setError(true);
-            }
-            finally{
-                setLoading(false);
-            }
-        };
-        if (category){
-            fetchMovies();
-        }
-    },[category, page]);
+    const {data, loading, error}=useFetchMovies(category,page);
 
     if(error){
         return(

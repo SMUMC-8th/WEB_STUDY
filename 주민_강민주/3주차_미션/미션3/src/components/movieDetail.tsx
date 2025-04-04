@@ -1,83 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useMovieDetail from "../hooks/useMovieDetail";
+import useMovieCredits from "../hooks/useMovieCredits";
 
-type Person={
-    id:number;
-    name:string;
-    profile_path:string|null;
-    character?:string;
-    job?:string;
-};
-
-type MovieDetailType={
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-    runtime: number;
-    vote_average: number;
-    genres:{id: number; name: string}[];
-};
+const fallbackImage = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
 const MovieDetail=()=>{
     const {movieId}=useParams();
-    const [movie, setMovie]=useState<MovieDetailType|null>(null);
-    const [loading, setLoading]=useState(true);
-    const [error, setError]=useState<string|null>(null);
-    const [cast, setCast] = useState<Person[]>([]);
-    const [crew, setCrew] = useState<Person[]>([]);
+    const {movie, loading:detailLoading, error:detailError}=useMovieDetail(movieId);
+    const {cast, crew, loading:creditLoading, error: creditError}=useMovieCredits(movieId);
 
-    const fallbackImage = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
-
-
-    useEffect(()=>{
-        const fetchMovie=async()=>{
-            try{
-                setLoading(true);
-                setError(null);
-
-                const response=await axios.get(
-                    `https://api.themoviedb.org/3/movie/${movieId}?language=en-EN`,
-                    {
-                        headers:{
-                            Authorization: `Bearer ${import.meta.env.VITE_THDB_TOKEN}`,
-                        },
-                    }
-                );
-
-                setMovie(response.data);
-            }
-            catch(err){
-                console.error(err);
-                setError("영화 정보를 불러오는 데 실패했습니다.");
-            }
-            finally{
-                setLoading(false);
-            }
-        };
-
-        const fetchCredits = async () => {
-            const creditRes = await axios.get(
-              `https://api.themoviedb.org/3/movie/${movieId}/credits`,
-              {
-                headers: {
-                  Authorization: `Bearer ${import.meta.env.VITE_THDB_TOKEN}`,
-                },
-              }
-            );
-          
-            setCast(creditRes.data.cast.slice(0, 16));
-            setCrew(creditRes.data.crew.filter((person: Person) => person.job === "Director"));
-          };
-
-        if (movieId){
-            fetchMovie();
-            fetchCredits();
-        }
-    }, [movieId]);
-
-    if (loading){
+    if (detailLoading||creditLoading){
         return(
             <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-500 border-opacity-50"/>
@@ -85,16 +17,12 @@ const MovieDetail=()=>{
         );
     }
 
-    if (error){
+    if (detailError||creditError||!movie){
         return(
             <div className="text-red-500 text-center font-semibold mt-8">
-                {error}
+                영화 정보를 불러오는 데 실패했습니다다
             </div>
         );
-    }
-
-    if (!movie){
-        return null;
     }
 
     return (
