@@ -28,3 +28,9 @@ export const getMyInfo = async (): Promise<ResponseMyInfoDto> => {
 
   return data;
 };
+
+export const postLogout = async (): Promise<void> => {
+  //파라미터가 없음 body에 들어갈 게 없으니까
+  const { data } = await axiosInstance.post("/v1/auth/signout");
+  return data;
+};

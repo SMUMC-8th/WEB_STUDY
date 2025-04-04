@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { validateSignin, UserSigninInformation } from "../utills/validate";
-import { postSignin } from "../apis/auth.ts";
-import { useLocalStorage } from "../hooks/useLocalStorage.ts";
+import { useAuth } from "../../context/AuthContext.tsx";
 export default function Login() {
-  const { setItem } = useLocalStorage("accessToken");
-  const navigate = useNavigate(); //페이지 이동 훅
-
+  const { login } = useAuth();
+  const navigate = useNavigate(); //페이지 이동
   const { values, errors, touched, getInputProps } =
     useForm<UserSigninInformation>({
       initialValue: {
@@ -22,18 +20,8 @@ export default function Login() {
 
   //로그인 버튼 클릭 시 값 출력
   const handleSubmit = async () => {
-    console.log(values);
-    try {
-      const response = await postSignin(values);
-      setItem(response.data.accessToken);
-      console.log(response);
-      if (response.statusCode === 201) {
-        navigate("/my");
-      }
-    } catch (error) {
-      alert(error?.message);
-      console.error("로그인 실패:", error);
-    }
+    await login(values);
+    navigate("/my");
   };
 
   return (

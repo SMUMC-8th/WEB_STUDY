@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMyInfo } from "../apis/auth.ts";
+import { useAuth } from "../../context/AuthContext.tsx";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const { logout } = useAuth();
+
   useEffect(() => {
     const getData = async () => {
       const response = await getMyInfo();
       if (response.statusCode === 200) {
         setIsLoggedIn(true);
-        console.log(response.data.name);
         setUserName(response.data.name);
       } else {
         setIsLoggedIn(false);
@@ -27,6 +29,10 @@ export default function Navbar() {
   };
   const handleLogoClick = () => {
     navigate("/");
+  };
+
+  const handleLogout = async () => {
+    await logout();
   };
   return (
     <div className="w-full bg-zinc-800 h-[80px] flex justify-between items-center text-center pl-5 pr-5">
@@ -55,7 +61,10 @@ export default function Navbar() {
       {isLoggedIn && (
         <div className="flex gap-4 text-white text-center jutify-center items-center">
           <p>안녕하세요, {userName}님</p>
-          <button className="rounded-[5px] text-white text-m bg-pink-600  w-[70px] cursor-pointer p-[5px]">
+          <button
+            className="rounded-[5px] text-white text-m bg-pink-600  w-[70px] cursor-pointer p-[5px]"
+            onClick={handleLogout}
+          >
             로그아웃
           </button>
         </div>
