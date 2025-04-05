@@ -1,64 +1,51 @@
-import { useSearchParams, useLocation } from "react-router-dom";
-import { usePopularMovies } from "../hooks/usePopularMovies";
-import { useNowPlayingMovies } from "../hooks/useNowPlayingMovies";
-import { useTopRatedMovies } from "../hooks/useTopRatedMovies";
-import { useUpcomingMovies } from "../hooks/useUpcomingMovies";
+import { useLocation } from "react-router-dom";
+import { useCustomFetch, MovieType } from "../hooks/useCustomFetch";
 import MovieCard from "../components/MovieCard";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
 const Main = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const currentPage = Number(searchParams.get("page")) || 1;
 
-  const popularMovies = usePopularMovies(currentPage);
-  const nowPlayingMovies = useNowPlayingMovies(currentPage);
-  const topRatedMovies = useTopRatedMovies(currentPage);
-  const upcomingMovies = useUpcomingMovies(currentPage);
-
-  const getCurrentMovies = () => {
+  const getMovieType = (): MovieType => {
     switch (location.pathname) {
       case "/":
-        return nowPlayingMovies;
+        return "now_playing";
       case "/movies/popular":
-        return popularMovies;
+        return "popular";
       case "/movies/now_playing":
-        return nowPlayingMovies;
+        return "now_playing";
       case "/movies/top_rated":
-        return topRatedMovies;
+        return "top_rated";
       case "/movies/upcoming":
-        return upcomingMovies;
+        return "upcoming";
       default:
-        return popularMovies;
+        return "popular";
     }
   };
 
-  const { movies, totalPages, loading, error } = getCurrentMovies();
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage < 1 || newPage > totalPages) return;
-    setSearchParams({ page: newPage.toString() });
-  };
+  const { data, loading, error, goToPage, currentPage } = useCustomFetch({
+    type: getMovieType(),
+  });
 
   const renderPagination = () => (
     <div className="pagination">
       <button
         className={`pagination-button ${currentPage === 1 ? "disabled" : ""}`}
-        onClick={() => handlePageChange(currentPage - 1)}
+        onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
       >
         이전
       </button>
       <span className="pagination-info">
-        {currentPage} / {totalPages}
+        {currentPage} / {data?.total_pages || 1}
       </span>
       <button
         className={`pagination-button ${
-          currentPage === totalPages ? "disabled" : ""
+          currentPage === (data?.total_pages || 1) ? "disabled" : ""
         }`}
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        onClick={() => goToPage(currentPage + 1)}
+        disabled={currentPage === (data?.total_pages || 1)}
       >
         다음
       </button>
@@ -67,7 +54,7 @@ const Main = () => {
 
   return (
     <div className="container">
-      {totalPages > 1 && renderPagination()}
+      {data && data.total_pages > 1 && renderPagination()}
       {loading ? (
         <div className="loading-content">
           <Loading />
@@ -76,7 +63,7 @@ const Main = () => {
         <Error message={error.message} />
       ) : (
         <div className="movie-grid">
-          {movies.map((movie) => (
+          {data?.results.map((movie) => (
             <MovieCard key={movie.id} {...movie} />
           ))}
         </div>
