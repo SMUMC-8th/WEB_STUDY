@@ -8,51 +8,34 @@ enum PageName {
   UPCOMING = "/upcoming",
 }
 
-export default function Navbar() {
-  const curPage = useLocation().pathname;
+interface elementProps {
+  pageName: string;
+  text: string;
+}
 
+export default function Navbar() {
   return (
     <nav className="flex flex-col sm:flex-row p-5">
-      <Link
-        to={PageName.HOME}
-        className={`mb-2 sm:mr-3 hover:text-red-600 ${
-          curPage === PageName.HOME ? "text-green-600" : ""
-        }`}
-      >
-        홈
-      </Link>
-      <Link
-        to={PageName.POPULAR}
-        className={`mb-2 sm:mr-3 hover:text-red-600 ${
-          curPage === PageName.POPULAR ? "text-green-600" : ""
-        }`}
-      >
-        인기 영화
-      </Link>
-      <Link
-        to={PageName.NOWPLAYING}
-        className={`mb-2 sm:mr-3 hover:text-red-600 ${
-          curPage === PageName.NOWPLAYING ? "text-green-600" : ""
-        }`}
-      >
-        상영 중
-      </Link>
-      <Link
-        to={PageName.TOPRATED}
-        className={`mb-2 sm:mr-3 hover:text-red-600 ${
-          curPage === PageName.TOPRATED ? "text-green-600" : ""
-        }`}
-      >
-        평점 높은
-      </Link>
-      <Link
-        to={PageName.UPCOMING}
-        className={`mb-2 sm:mr-3 hover:text-red-600 ${
-          curPage === PageName.UPCOMING ? "text-green-600" : ""
-        }`}
-      >
-        개봉 예정
-      </Link>
+      <NavbarElement pageName={PageName.HOME} text="홈" />
+      <NavbarElement pageName={PageName.POPULAR} text="인기 영화" />
+      <NavbarElement pageName={PageName.NOWPLAYING} text="상영 중" />
+      <NavbarElement pageName={PageName.TOPRATED} text="평점 높은" />
+      <NavbarElement pageName={PageName.UPCOMING} text="개봉 예정" />
     </nav>
+  );
+}
+
+function NavbarElement({ pageName, text }: elementProps) {
+  const currentPage = useLocation().pathname;
+
+  return (
+    <Link
+      to={pageName}
+      className={`mb-2 sm:mr-3 hover:text-red-600 ${
+        currentPage === pageName ? "text-green-600" : ""
+      }`}
+    >
+      {text}
+    </Link>
   );
 }

@@ -1,10 +1,4 @@
-import { Movie, MovieCredits, MovieDetail } from "./movie";
-
-export interface Istate {
-  movies: Movie[];
-  page: number;
-  error: number | null | undefined;
-}
+import { MovieCredits, MovieDetail } from "./movie";
 
 export interface IMovieDetail {
   movie: MovieDetail | null;
