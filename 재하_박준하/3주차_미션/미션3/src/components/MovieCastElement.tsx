@@ -1,4 +1,5 @@
 import { castType } from "../types/movie";
+import defaultImage from "../assets/images/default-image.avif";
 
 interface propsType {
   cast: castType;
@@ -6,10 +7,7 @@ interface propsType {
 
 export default function MovieCastElement({ cast }: propsType) {
   return (
-    <div
-      key={cast.id}
-      className="box-border flex flex-col justify-center items-center text-center"
-    >
+    <div className="box-border flex flex-col justify-center items-center text-center">
       <div className="w-full aspect-square overflow-hidden rounded-full mb-2">
         {cast.profile_path ? (
           <img
@@ -19,7 +17,7 @@ export default function MovieCastElement({ cast }: propsType) {
           />
         ) : (
           <img
-            src="/src/assets/images/default-image.avif"
+            src={defaultImage}
             className="w-full h-full object-cover"
             alt="No profile"
           />

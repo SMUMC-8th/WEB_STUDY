@@ -1,4 +1,5 @@
 import { Movie } from "../../../미션2/src/types/movie";
+import defaultImage from "../assets/images/default-image.avif";
 
 interface props {
   movie: Movie;
@@ -16,7 +17,7 @@ export default function MovieListElement({ movie, onMovieDetail }: props) {
       ) : (
         <img
           className="box-border p-2 rounded-2xl w-full h-full object-cover group-hover:blur-sm"
-          src="/src/assets/images/default-image.avif"
+          src={defaultImage}
         ></img>
       )}
       <div

@@ -4,6 +4,7 @@ import useMovieDetailData from "../hooks/useMovieDetailData";
 import { MovieCredits, MovieDetail } from "../types/movie";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/Loading";
+import { curLanguageType } from "../types/movieState";
 
 interface MovieDetailData {
   movie: MovieDetail | MovieCredits | null;
@@ -17,14 +18,18 @@ export default function MovieDetailPage() {
     movie: topInfo,
     error: topError,
     isLoading: topIsLoading,
-  }: MovieDetailData = useMovieDetailData<MovieDetail>("?language=en-US");
+  }: MovieDetailData = useMovieDetailData<MovieDetail>({
+    endURL: "",
+    paramsApiUrl: [`language=${curLanguageType}`],
+  });
   const {
     movie: btmInfo,
     error: btmError,
     isLoading: btmIsLoading,
-  }: MovieDetailData = useMovieDetailData<MovieCredits>(
-    "/credits?language=en-US"
-  );
+  }: MovieDetailData = useMovieDetailData<MovieCredits>({
+    endURL: "/credits",
+    paramsApiUrl: [`language=${curLanguageType}`],
+  });
 
   if (topError || btmError) {
     if (topError) return <ErrorPage value={topError} />;

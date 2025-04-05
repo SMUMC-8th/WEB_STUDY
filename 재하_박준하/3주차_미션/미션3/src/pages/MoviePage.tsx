@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/Loading";
 import MovieList from "../components/MovieList";
+import { curLanguageType } from "../types/movieState";
 
 interface MoviePageProps {
   apiMovieType: string;
@@ -22,9 +23,9 @@ export default function MoviePage({ apiMovieType }: MoviePageProps) {
     try {
       // axios api call
       const { data } = await axios.get<MovieResponse>(
-        `${import.meta.env.VITE_TMDB_BASE_URL}${apiMovieType}${
-          import.meta.env.VITE_TMDB_EN
-        }${page}`,
+        `${
+          import.meta.env.VITE_TMDB_BASE_URL
+        }${apiMovieType}?language=${curLanguageType}&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
@@ -66,13 +67,13 @@ export default function MoviePage({ apiMovieType }: MoviePageProps) {
     navigate(`/movies/${movieID}`);
   }
 
+  if (error) return <ErrorPage value={error} />;
+
+  if (isLoading) return <Loading />;
+
   // 최우선으로 error 유무 검사
   // error가 아니라면 api를 들고 왔는지 여부 검사
-  return error ? (
-    <ErrorPage value={error} />
-  ) : isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <MovieList
       movies={movies}
       page={page}
