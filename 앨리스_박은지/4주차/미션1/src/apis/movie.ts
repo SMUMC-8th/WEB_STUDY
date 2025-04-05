@@ -1,14 +1,16 @@
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 
 export type MovieType = "popular" | "now_playing" | "top_rated" | "upcoming";
 
 export const getMovies = async (type: MovieType, page: number = 1) => {
   const response = await axios.get(`${BASE_URL}/movie/${type}`, {
+    headers: {
+      Authorization: `Bearer ${TMDB_TOKEN}`,
+    },
     params: {
-      api_key: API_KEY,
       language: "ko-KR",
       page,
     },
@@ -18,8 +20,10 @@ export const getMovies = async (type: MovieType, page: number = 1) => {
 
 export const getMovieDetail = async (id: number) => {
   const response = await axios.get(`${BASE_URL}/movie/${id}`, {
+    headers: {
+      Authorization: `Bearer ${TMDB_TOKEN}`,
+    },
     params: {
-      api_key: API_KEY,
       language: "ko-KR",
     },
   });

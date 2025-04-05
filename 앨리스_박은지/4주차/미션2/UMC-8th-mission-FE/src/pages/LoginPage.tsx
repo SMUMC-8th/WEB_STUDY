@@ -16,6 +16,7 @@ function LoginPage() {
       },
       validate: validateSignin,
       onSubmit: async (values) => {
+        console.log("로그인 성공:", values);
         try {
           const response = await postSignin(values);
           if (response.status && response.data) {

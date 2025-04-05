@@ -3,20 +3,36 @@ import { getMyInfo } from "../apis/auth.ts";
 import { ResponseMyInfoDto } from "../types/auth.ts";
 
 const MyPage = () => {
-  const [data, setData] = useState<ResponseMyInfoDto>([]);
+  const [data, setData] = useState<ResponseMyInfoDto | null>(null);
 
   useEffect(() => {
     const getData = async () => {
-      const response = await getMyInfo();
-      console.log(response);
-
-      setData(response);
+      try {
+        const response = await getMyInfo();
+        setData(response);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
     };
     getData();
   }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      {data.data.name} {data.data.email}
+      <h1>내 정보</h1>
+      <p>이름: {data.data.name}</p>
+      <p>이메일: {data.data.email}</p>
+      {data.data.bio && <p>소개: {data.data.bio}</p>}
+      {data.data.avatar && (
+        <div>
+          <p>프로필 이미지:</p>
+          <img src={data.data.avatar} alt="프로필 이미지" />
+        </div>
+      )}
     </div>
   );
 };

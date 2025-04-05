@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import profileImage from "../assets/Profile.png";
 
@@ -11,14 +10,7 @@ interface MovieCardProps {
   overview: string;
 }
 
-const MovieCard = ({
-  id,
-  title,
-  poster_path,
-  vote_average,
-  release_date,
-  overview,
-}: MovieCardProps) => {
+const MovieCard = ({ id, title, poster_path, overview }: MovieCardProps) => {
   return (
     <Link to={`/movie/${id}`} className="movie-card">
       <div className="movie-poster">

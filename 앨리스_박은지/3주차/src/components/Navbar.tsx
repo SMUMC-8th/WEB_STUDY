@@ -3,44 +3,26 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const location = useLocation();
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const links = [
+    { path: "/", label: "홈" },
+    { path: "/movies/popular", label: "인기" },
+    { path: "/movies/now_playing", label: "상영 중" },
+    { path: "/movies/top_rated", label: "평점 높은" },
+    { path: "/movies/upcoming", label: "개봉 예정" },
+  ];
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className={`nav-link ${isActive("/") ? "active" : ""}`}>
-          홈
-        </Link>
-        <Link
-          to="/movies/popular"
-          className={`nav-link ${isActive("/movies/popular") ? "active" : ""}`}
-        >
-          인기
-        </Link>
-        <Link
-          to="/movies/now_playing"
-          className={`nav-link ${
-            isActive("/movies/now_playing") ? "active" : ""
-          }`}
-        >
-          상영 중
-        </Link>
-        <Link
-          to="/movies/top_rated"
-          className={`nav-link ${
-            isActive("/movies/top_rated") ? "active" : ""
-          }`}
-        >
-          평점 높은
-        </Link>
-        <Link
-          to="/movies/upcoming"
-          className={`nav-link ${isActive("/movies/upcoming") ? "active" : ""}`}
-        >
-          개봉 예정
-        </Link>
+        {links.map(({ path, label }) => (
+          <Link
+            key={path}
+            to={path}
+            className={`nav-link ${location.pathname === path ? "active" : ""}`}
+          >
+            {label}
+          </Link>
+        ))}
       </div>
     </nav>
   );

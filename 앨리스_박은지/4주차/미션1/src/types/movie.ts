@@ -26,11 +26,13 @@ export interface Credits {
     profile_path: string | null;
     credit_id: string;
   }[];
-  crew: {
-    id: number;
-    name: string;
-    job: string;
-    profile_path: string | null;
-    credit_id: string;
-  }[];
+  crew: Crew[];
+}
+
+export interface Crew {
+  id: number;
+  name: string;
+  job: string;
+  profile_path: string | null;
+  credit_id: string;
 }

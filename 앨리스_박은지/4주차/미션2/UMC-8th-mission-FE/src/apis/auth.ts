@@ -1,78 +1,42 @@
 import { axiosInstance } from "./axios";
-import {
-  RequestSigninDto,
-  RequestSignupDto,
-  ResponseMyInfoDto,
-  ResponseSigninDto,
-  ResponseSignupDto,
-} from "../types/auth.ts";
-import { AxiosError } from "axios";
+import { LOCAL_STORAGE_KEY } from "../constants/key";
+import { ResponseMyInfoDto } from "../types/auth";
 
-export const postSignup = async (
-  body: RequestSignupDto
-): Promise<ResponseSignupDto> => {
+export async function postSignup(data: {
+  email: string;
+  password: string;
+  name: string;
+}) {
   try {
-    console.log("회원가입 요청 데이터:", {
-      email: body.email,
-      name: body.name,
-      password: "****",
-    });
-
-    const response = await axiosInstance.post("/v1/auth/signup", {
-      email: body.email,
-      password: body.password,
-      name: body.name,
-    });
-
-    console.log("회원가입 성공:", response.data);
+    const response = await axiosInstance.post("v1/auth/signup", data);
     return response.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error("회원가입 실패:", {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        headers: error.response?.headers,
-        config: {
-          url: error.config?.url,
-          method: error.config?.method,
-          headers: error.config?.headers,
-          data: error.config?.data
-            ? {
-                ...JSON.parse(error.config.data),
-                password: "****",
-              }
-            : null,
-        },
-      });
-    } else {
-      console.error("네트워크 에러:", error);
-    }
+    console.error("Signup Error:", error);
     throw error;
   }
-};
+}
 
-export const postSignin = async (
-  body: RequestSigninDto
-): Promise<ResponseSigninDto> => {
+export async function postSignin(data: { email: string; password: string }) {
   try {
-    console.log("Attempting to sign in with:", { ...body, password: "****" });
-    const response = await axiosInstance.post("/v1/auth/signin", body);
-    console.log("Signin success:", response.data);
+    const response = await axiosInstance.post("v1/auth/signin", data);
     return response.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error("Signin request failed:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message,
-      });
-    }
+    console.error("Signin Error:", error);
     throw error;
   }
-};
+}
 
-export const getMyInfo = async (): Promise<ResponseMyInfoDto> => {
-  const { data } = await axiosInstance.get("/v1/users/me");
-  return data;
-};
+export async function getMyInfo(): Promise<ResponseMyInfoDto> {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
+  try {
+    const response = await axiosInstance.get("v1/users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("getMyInfo Error:", error);
+    throw error;
+  }
+}

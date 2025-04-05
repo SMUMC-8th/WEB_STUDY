@@ -6,10 +6,9 @@ export type MovieType = "popular" | "now_playing" | "top_rated" | "upcoming";
 
 interface UseCustomFetchProps {
   type: MovieType;
-  page?: number;
 }
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   poster_path: string;
@@ -25,11 +24,13 @@ interface MovieResponse {
   page: number;
 }
 
-export const useCustomFetch = ({ type, page = 1 }: UseCustomFetchProps) => {
+export const useCustomFetch = ({ type }: UseCustomFetchProps) => {
   const [data, setData] = useState<MovieResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = parseInt(searchParams.get("page") || "1", 10);
 
   useEffect(() => {
     const fetchData = async () => {
