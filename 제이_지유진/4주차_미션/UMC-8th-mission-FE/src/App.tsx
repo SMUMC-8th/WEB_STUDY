@@ -6,6 +6,8 @@ import HomeLayout from "./layouts/HomeLayout";
 import NotFound from "./pages/NotFoundPage";
 import SignUp from "./pages/SignUp";
 import Mypage from "./pages/Mypage";
+import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
+import { RouteObject } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
 import { children } from "react";
 import ProtectedLayout from "./layouts/ProtectedLayout";
@@ -23,7 +25,15 @@ const publicRoutes: RouteObject[] = [
       { index: true, element: <HomePage /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
+      {
+        path: "v1/auth/google/callback",
+        element: <GoogleLoginRedirectPage />,
+      },
     ],
+  },
+  {
+    path: "/v1/auth/google/callback",
+    element: <GoogleLoginRedirectPage />,
   },
 ];
 //protectroute: 인증이 필요한 라우트

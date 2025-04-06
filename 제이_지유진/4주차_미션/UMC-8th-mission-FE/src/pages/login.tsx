@@ -24,6 +24,11 @@ export default function Login() {
     navigate("/my");
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href =
+      import.meta.env.VITE_SERVER_API_URL + "/v1/auth/google/login";
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4 text-white">
       <div className="p-[10px] rounded-lg shadow-lg">
@@ -66,6 +71,19 @@ export default function Login() {
             }`}
           >
             로그인
+          </button>
+          <button
+            onClick={handleGoogleLogin}
+            className="w-[300px] p-3 rounded-md transition-colors bg-pink-500 text-white hover:bg-pink-600"
+          >
+            <div className="flex items-center justify-center">
+              <img
+                src={"../google.svg"}
+                alt="google"
+                className="w-5 h-5 inline-block mr-2"
+              />
+              구글 로그인
+            </div>
           </button>
         </div>
       </div>
