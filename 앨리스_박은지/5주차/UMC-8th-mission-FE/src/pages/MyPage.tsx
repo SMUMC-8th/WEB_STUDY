@@ -36,7 +36,7 @@ const MyPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+      <div className="flex items-center justify-center min-h-screen text-white bg-black">
         <p>로딩 중...</p>
       </div>
     );
@@ -44,10 +44,10 @@ const MyPage = () => {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
-        <p className="text-red-500 mb-4">{error}</p>
+      <div className="flex flex-col items-center justify-center min-h-screen text-white bg-black">
+        <p className="mb-4 text-red-500">{error}</p>
         <button
-          className="cursor-pointer bg-blue-500 text-white rounded-md px-6 py-3 hover:bg-blue-600"
+          className="px-6 py-3 text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
           onClick={() => navigate("/")}
         >
           홈으로 돌아가기
@@ -58,10 +58,10 @@ const MyPage = () => {
 
   if (!data || !data.data) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+      <div className="flex flex-col items-center justify-center min-h-screen text-white bg-black">
         <p className="mb-4">사용자 정보가 없습니다.</p>
         <button
-          className="cursor-pointer bg-blue-500 text-white rounded-md px-6 py-3 hover:bg-blue-600"
+          className="px-6 py-3 text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
           onClick={() => navigate("/")}
         >
           홈으로 돌아가기
@@ -71,21 +71,21 @@ const MyPage = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-white bg-black">
       <div className="w-full max-w-md text-center">
-        <h1 className="text-2xl font-bold mb-4">
+        <h1 className="mb-4 text-2xl font-bold">
           {data.data.name}님 환영합니다.
         </h1>
         {data.data.avatar && (
           <img
             src={data.data.avatar}
             alt="프로필 이미지"
-            className="w-32 h-32 rounded-full mx-auto mb-4"
+            className="w-32 h-32 mx-auto mb-4 rounded-full"
           />
         )}
-        <p className="text-lg mb-8">{data.data.email}</p>
+        <p className="mb-8 text-lg">{data.data.email}</p>
         <button
-          className="cursor-pointer bg-blue-500 text-white rounded-md px-6 py-3 hover:bg-blue-600 transition-transform hover:scale-105"
+          className="px-6 py-3 text-white transition-transform bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600 hover:scale-105"
           onClick={handleLogout}
         >
           로그아웃

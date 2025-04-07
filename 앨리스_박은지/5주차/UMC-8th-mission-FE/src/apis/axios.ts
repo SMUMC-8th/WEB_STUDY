@@ -2,8 +2,6 @@ import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import { LOCAL_STORAGE_KEY } from "../constants/key.ts";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-console.log("VITE_SERVER_API_URL:", import.meta.env.VITE_SERVER_API_URL);
-
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
 }
