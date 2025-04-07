@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { accessToken, logout } = useAuth();
+
   return (
     <nav className="bg-black border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,18 +16,37 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link
-              to="/login"
-              className="text-gray-300 hover:text-white px-3 py-2 text-sm font-bold"
-            >
-              로그인
-            </Link>
-            <Link
-              to="/signup"
-              className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm font-bold"
-            >
-              회원가입
-            </Link>
+            {accessToken ? (
+              <>
+                <Link
+                  to="/my-page"
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-bold"
+                >
+                  마이페이지
+                </Link>
+                <button
+                  onClick={logout}
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-bold"
+                >
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-bold"
+                >
+                  로그인
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-md text-sm font-bold"
+                >
+                  회원가입
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

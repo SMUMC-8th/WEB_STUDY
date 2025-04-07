@@ -1,12 +1,20 @@
-import { LOCAL_STORAGE_KEY } from "../constants/key";
 import useForm from "../hooks/useForm";
 import { validateSignin, UserSigninInformation } from "../utils/validate";
-import { postSignin } from "../apis/auth.ts";
-import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function LoginPage() {
+  const { login, accessToken } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/my-page");
+    }
+  }, [accessToken, navigate]);
 
   const { errors, touched, getInputProps, handleSubmit } =
     useForm<UserSigninInformation>({
@@ -18,17 +26,7 @@ function LoginPage() {
       onSubmit: async (values) => {
         console.log("로그인 성공:", values);
         try {
-          const response = await postSignin(values);
-          if (response.status && response.data) {
-            localStorage.setItem(
-              LOCAL_STORAGE_KEY.accessToken,
-              response.data.accessToken
-            );
-            localStorage.setItem("refreshToken", response.data.refreshToken);
-            navigate("/");
-          } else {
-            alert(response.message || "로그인에 실패했습니다.");
-          }
+          await login(values);
         } catch (error) {
           if (error instanceof AxiosError) {
             const errorMessage =
@@ -41,6 +39,11 @@ function LoginPage() {
       },
     });
 
+  const handleGoogleLogin = () => {
+    window.location.href =
+      import.meta.env.VITE_GOOGLE_LOGIN_URL + "v1/auth/google/login";
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
       <div className="w-full max-w-md">
@@ -50,8 +53,12 @@ function LoginPage() {
           </Link>
           <h1 className="text-2xl font-bold w-full text-center">로그인</h1>
         </div>
-        <button className="w-full bg-white text-black rounded-md py-3 mb-6 flex items-center justify-center space-x-2">
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full bg-white text-black rounded-md py-3 mb-6 flex items-center justify-center space-x-2"
+        >
           <img src="/google-icon.svg" alt="Google" className="w-6 h-6" />
+
           <span>구글 로그인</span>
         </button>
         <div className="relative my-6">

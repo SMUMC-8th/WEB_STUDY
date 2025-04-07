@@ -40,3 +40,18 @@ export async function getMyInfo(): Promise<ResponseMyInfoDto> {
     throw error;
   }
 }
+
+export const postLogout = async () => {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken);
+  try {
+    const response = await axiosInstance.post("v1/auth/signout", null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Logout Error:", error);
+    throw error;
+  }
+};
