@@ -3,7 +3,7 @@
 
 // React Router의 Outlet: 자식 라우트를 렌더링해주는 컴포넌트
 import { Outlet } from "react-router-dom";
-import NavBar from "../components/NavBer"; // 상단 네비게이션 바
+import NavBar from "../components/NavBar"; // 상단 네비게이션 바
 import Footer from "../components/Footer";
 
 // 홈 레이아웃 컴포넌트 (공통 레이아웃 틀)

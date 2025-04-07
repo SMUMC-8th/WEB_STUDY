@@ -1,10 +1,4 @@
-import {
-  children,
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useState,
-} from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { RequestSigninDto } from "../types/auth";
 import { useLocalStorage } from "../hooks/useLocalStoage";
 import { LOCAL_STORAGE_KEY } from "../constants/key";
@@ -44,7 +38,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     getRefreshTokenFromStorage()
   );
 
-  const login = async (signinData, RequestSigninDto) => {
+  const login = async (signinData: RequestSigninDto) => {
     try {
       const { data } = await postSignin(signinData);
 

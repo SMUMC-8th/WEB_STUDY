@@ -10,7 +10,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import HomeLayout from "./layouts/HomeLatout";
+import HomeLayout from "./layouts/HomeLayout";
 import Mypage from "./pages/MyPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtextedLayout from "./layouts/ProtectedLayout";

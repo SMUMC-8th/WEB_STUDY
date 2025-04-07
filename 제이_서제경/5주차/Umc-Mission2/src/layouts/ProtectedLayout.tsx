@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const ProtextedLayout = () => {
+const ProtectedLayout = () => {
   const { accessToken } = useAuth();
 
   if (!accessToken) {
@@ -11,4 +11,4 @@ const ProtextedLayout = () => {
   return <Outlet />;
 };
 
-export default ProtextedLayout;
+export default ProtectedLayout;

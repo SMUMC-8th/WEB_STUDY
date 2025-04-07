@@ -3,6 +3,7 @@ import { getMyInfo } from "../apis/auth.ts";
 import { ResponseMyInfoDto } from "../types/auth.ts";
 import { useAuth } from "../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../hooks/useLocalStoage.ts";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -20,7 +21,12 @@ const MyPage = () => {
     getData();
   }, []);
 
+  const { removeItem: removeAccessToken } = useLocalStorage("accessToken");
+  const { removeItem: removeRefreshToken } = useLocalStorage("refreshToken");
+
   const handleLogout = async () => {
+    removeAccessToken();
+    removeRefreshToken();
     await logout();
     navigate("/");
   };

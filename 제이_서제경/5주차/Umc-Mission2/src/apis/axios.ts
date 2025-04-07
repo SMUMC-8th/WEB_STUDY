@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
     //accessToken이 존재하면 Authorization 헤더에 Bearer 토큰 형식으로 추가한다.
     if (accessToken) {
       config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer${accessToken}`;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     // 수정된 요청 설정을 반환
