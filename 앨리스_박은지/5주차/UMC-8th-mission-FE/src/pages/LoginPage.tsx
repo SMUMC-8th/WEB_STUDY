@@ -24,9 +24,9 @@ function LoginPage() {
       },
       validate: validateSignin,
       onSubmit: async (values) => {
-        console.log("로그인 성공:", values);
         try {
-          await login(values);
+          const response = await login(values);
+          console.log("로그인 성공:", response);
         } catch (error) {
           if (error instanceof AxiosError) {
             const errorMessage =
@@ -41,7 +41,7 @@ function LoginPage() {
 
   const handleGoogleLogin = () => {
     window.location.href =
-      import.meta.env.VITE_GOOGLE_LOGIN_URL + "v1/auth/google/login";
+      import.meta.env.VITE_GOOGLE_LOGIN_URL + "/v1/auth/google/login";
   };
 
   return (

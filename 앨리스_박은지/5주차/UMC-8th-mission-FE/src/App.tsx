@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 import { AuthProvider } from "./context/AuthContext";
 import { RouteObject } from "react-router-dom";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 
 // 1. 홈페이지
 // 2. 로그인 페이지
@@ -34,7 +35,7 @@ const protectedRoutes: RouteObject[] = [
     path: "/my-page",
     element: <ProtectedLayout />,
     errorElement: <NotFoundPage />,
-    children: [{ element: <MyPage /> }],
+    children: [{ index: true, element: <MyPage /> }],
   },
 ];
 
