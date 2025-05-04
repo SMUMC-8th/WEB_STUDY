@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   //accessToken 이 있으면 로그인된 상태이다 라는 상태를 만들어주자.
   const [accessToken, setAccessToken] = useState<string | null>(
-    getAccessTokenFromStorage() //지연 초기화 => 처음에만 한번만 실행된다. 한번 값을 넣는데 매번 렌더링 될 필요 없으니까
+    getAccessTokenFromStorage() //지연 초기화 => 처음에만 한번만 실행된다. 한번 값을 넣는데 매번 렌더링 될 필요 없으니까 //질문 1: useEffect 를 사용하면 되는 거 아닌가요?
   );
   //refreshToken 이 있으면 로그인된 상태이다 라는 상태를 만들어주자.
   const [refreshToken, setRefreshToken] = useState<string | null>(
