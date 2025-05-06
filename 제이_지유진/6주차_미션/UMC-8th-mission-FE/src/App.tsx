@@ -1,5 +1,9 @@
 import "./App.css";
+import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import Login from "./pages/login";
 import HomePage from "./pages/Homepage";
 import HomeLayout from "./layouts/HomeLayout";
@@ -10,6 +14,7 @@ import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { RouteObject } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import Home from "./pages/Home";
 //1. 홈페이지
 //2. 로그인
 //3. 회원가입
@@ -46,15 +51,28 @@ const protectedRoutes: RouteObject[] = [
         path: "my",
         element: <Mypage />,
       },
+      {
+        path: "home",
+        element: <Home />,
+      },
     ],
   },
 ];
+const queryClient = new QueryClient();
 const router = createBrowserRouter([...publicRoutes, ...protectedRoutes]);
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+      {/* <button onClick={() => setIsOpen(!isOpen)}>{`${
+        isOpen ? "Close" : "Open"
+      } the devtools panel`}</button> */}
+      {isOpen && <ReactQueryDevtoolsPanel onClose={() => setIsOpen(false)} />}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

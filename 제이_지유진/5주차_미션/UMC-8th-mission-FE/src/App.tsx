@@ -9,6 +9,7 @@ import Mypage from "./pages/Mypage";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { RouteObject } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
+import { children } from "react";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 //1. 홈페이지
 //2. 로그인
