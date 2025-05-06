@@ -1,0 +1,9 @@
+@import "tailwindcss";
+/* index.css 또는 App.css 등 글로벌 CSS에 추가 */
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #000000; /* 또는 theme에 맞게 black */
+  overflow-x: hidden;
+}
