@@ -1,16 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginPage from "./pages/LoginPage.tsx";
-import HomeLayout from "./layouts/HomeLayout.tsx";
-import HomePage from "./pages/HomePage.tsx";
-import SignupPage from "./pages/SignupPage.tsx";
-import NotFoundPage from "./pages/NotFoundPage.tsx";
-import MyPage from "./pages/MyPage.tsx";
+import LoginPage from "./pages/LoginPage";
+import HomeLayout from "./layouts/HomeLayout";
+import HomePage from "./pages/HomePage";
+import SignupPage from "./pages/SignupPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import MyPage from "./pages/MyPage";
+import { AuthProvider } from "./context/AuthContext";
+import { RouteObject } from "react-router-dom";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 
 // 1. 홈페이지
 // 2. 로그인 페이지
 // 3. 회원가입 페이지
 
-const router = createBrowserRouter([
+//publicRoutes : 인증 없이 접근 가능한 라우트
+const publicRoutes: RouteObject[] = [
   {
     path: "/",
     element: <HomeLayout />,
@@ -19,13 +23,29 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
-      { path: "my-page", element: <MyPage /> },
+      { path: "v1/auth/google/callback", element: <GoogleLoginRedirectPage /> },
     ],
   },
-]);
+];
+
+//protectedRoutes : 인증이 필요한 라우트
+const protectedRoutes: RouteObject[] = [
+  {
+    path: "/my-page",
+    element: <ProtectedLayout />,
+    errorElement: <NotFoundPage />,
+    children: [{ element: <MyPage /> }],
+  },
+];
+
+const router = createBrowserRouter([...publicRoutes, ...protectedRoutes]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;
