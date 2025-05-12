@@ -12,17 +12,17 @@ const Alert = ({ onClose }: { onClose: () => void }) => {
       >
         <div className="bg-zinc-800 w-[300px] h-full z-[10001] flex flex-col ">
           <Link
-            to="/search"
+            to="/home"
             className="text-gray-200 py-2 px-4 hover:bg-zinc-700 rounded transition"
             onClick={() => onClose()}
           >
             <div>
               <FaSearch className="inline-block mr-2" />
-              돋보기 찾기
+              찾기
             </div>
           </Link>
           <Link
-            to="/mypage"
+            to="/my"
             className="text-gray-200 py-2 px-4 hover:bg-zinc-700 rounded transition"
             onClick={() => onClose()}
           >

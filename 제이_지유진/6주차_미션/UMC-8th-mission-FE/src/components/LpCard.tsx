@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TLP } from "../constants/lps";
 import { FaHeart } from "react-icons/fa";
 
@@ -26,19 +27,21 @@ const timeSince = (date: string) => {
 };
 
 function LpCard(lp: TLP | undefined) {
+  const navigate = useNavigate();
+
   if (!lp) return null;
 
   return (
     <div
+      onClick={() => navigate(`/lps/${lp.id}`)}
       key={lp.id}
-      className="relative group w-[200px] h-[200px] overflow-hidden shadow-md"
+      className="relative group w-[200px] h-[200px] overflow-hidden shadow-md cursor-pointer"
     >
       <img
         src={lp.thumbnail || ""}
         alt="썸네일"
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
-      {/* Hover Overlay */}
       <div className="absolute inset-0 bg-black/60 text-white flex flex-col items-start justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3 gap-y-1 text-xs">
         <p className="line-clamp-1">{lp.title}</p>
         <p>{timeSince(lp.createdAt)}</p>

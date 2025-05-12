@@ -12,9 +12,10 @@ import SignUp from "./pages/SignUp";
 import Mypage from "./pages/Mypage";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { RouteObject } from "react-router-dom";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Home from "./pages/Home";
+import LpDetailPage from "./pages/LpDetailPage";
 //1. 홈페이지
 //2. 로그인
 //3. 회원가입
@@ -32,6 +33,10 @@ const publicRoutes: RouteObject[] = [
       {
         path: "v1/auth/google/callback",
         element: <GoogleLoginRedirectPage />,
+      },
+      {
+        path: "lps/:lpId",
+        element: <LpDetailPage />,
       },
     ],
   },

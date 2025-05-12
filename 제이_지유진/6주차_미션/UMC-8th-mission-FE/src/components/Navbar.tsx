@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMyInfo } from "../apis/auth.ts";
-import { useAuth } from "../../context/AuthContext.tsx";
+import { useAuth } from "../context/AuthContext.tsx";
 import { useQuery } from "@tanstack/react-query";
 import Alert from "./alert/alert.tsx";
 import HamburgerButton from "../components/Hamburger.tsx";

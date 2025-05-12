@@ -1,3 +1,4 @@
+import { axiosInstance } from "../apis/axios";
 import { TOrder } from "../constants/enum";
 import { CommonResponse } from "../types/common";
 
@@ -35,4 +36,14 @@ export type TLikes = {
   id: number;
   userId: number;
   lpId: number;
+};
+
+export const postLike = async (lpId: number) => {
+  const { data } = await axiosInstance.post(`v1/lps/${lpId}/likes`);
+  return data;
+};
+
+export const deleteLike = async (lpId: number) => {
+  const { data } = await axiosInstance.delete(`v1/lps/${lpId}/likes`);
+  return data;
 };

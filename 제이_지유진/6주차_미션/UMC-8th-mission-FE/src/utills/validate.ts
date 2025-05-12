@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type UserSigninInformation = {
   email: string;
   password: string;
@@ -24,8 +26,13 @@ function validateUser(values: UserSigninInformation) {
   return errors;
 }
 
+const addLpSchema = z.object({
+  title: z.string().nonempty("제목을 입력해주세요."),
+  content: z.string().nonempty("내용을 입력해주세요."),
+});
+
 function validateSignin(values: UserSigninInformation) {
   return validateUser(values);
 }
 
-export { validateSignin };
+export { validateSignin, addLpSchema };

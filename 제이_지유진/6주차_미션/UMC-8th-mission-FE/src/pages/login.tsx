@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { validateSignin, UserSigninInformation } from "../utills/validate";
-import { useAuth } from "../../context/AuthContext.tsx";
+import { useAuth } from "../context/AuthContext.tsx";
+import { useMutation } from "@tanstack/react-query";
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate(); //페이지 이동
@@ -19,14 +20,40 @@ export default function Login() {
     !errors.email && !errors.password && values.email && values.password;
 
   //로그인 버튼 클릭 시 값 출력
-  const handleSubmit = async () => {
-    await login(values);
-    navigate("/my");
-  };
+  // const handleSubmit = async () => {
+  //   await login(values);
+  //   navigate("/my");
+  // };
 
   const handleGoogleLogin = () => {
     window.location.href =
       import.meta.env.VITE_SERVER_API_URL + "/v1/auth/google/login";
+  };
+
+  // const { mutate: deleteLpMutate } = useMutation({
+  //   mutationFn: () => deleteLp(Number(lpId)),
+  //   onSuccess: () => {
+  //     setLike(false);
+  //     queryClient.invalidateQueries({ queryKey: ["getLPDetail"] }); // 좋아요 성공 후 쿼리 무효화
+  //     navigate("/"); // 삭제 후 홈으로 이동
+  //   }, // lpId를 숫자로 변환
+  //   onError: (error) => {
+  //     console.error("LP 삭제 실패:", error);
+  //   },
+  // }); 예시1
+
+  const { mutate: LoginMutate } = useMutation({
+    mutationFn: () => login(values),
+    onSuccess: () => {
+      navigate("/my");
+    },
+    onError: (error) => {
+      console.error("로그인 실패:", error);
+    },
+  });
+
+  const handleSubmit = async () => {
+    LoginMutate();
   };
 
   return (
