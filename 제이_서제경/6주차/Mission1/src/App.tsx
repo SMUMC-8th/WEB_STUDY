@@ -18,9 +18,9 @@ import SignupPage from "./pages/SignupPage";
 import HomeLayout from "./layouts/HomeLayout";
 import Mypage from "./pages/MyPage";
 import { AuthProvider } from "./context/AuthContext";
-import ProtextedLayout from "./layouts/ProtectedLayout";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import LpDetailPage from "./pages/LpDetailPage";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 
 // publicRouters : 인증 없이 접근 가능한 라우트
 const publicRoutes: RouteObject[] = [
@@ -40,15 +40,15 @@ const publicRoutes: RouteObject[] = [
 ];
 
 // protectedRouters: 인증이 필요한 라우트
+//  — HomeLayout 내부에 ProtectedLayout 중첩
 const protectedRouters: RouteObject[] = [
   {
-    path: "/", // 동일한 루트지만 레이아웃만 다름
-    element: <ProtextedLayout />, // 인증된 사용자에게만 보여지는 레이아웃
-    errorElement: <NotFoundPage />, // 에러 발생 시 대체 페이지
+    path: "/",
+    element: <HomeLayout />, // NavBar, Sidebar 포함
     children: [
       {
-        path: "mypage", // "/mypage" 경로는 로그인한 사용자만 접근 가능
-        element: <Mypage />,
+        element: <ProtectedLayout />, // accessToken 없으면 /login으로 리다이렉트
+        children: [{ path: "mypage", element: <Mypage /> }],
       },
     ],
   },
@@ -58,7 +58,7 @@ const protectedRouters: RouteObject[] = [
 const router = createBrowserRouter([...publicRoutes, ...protectedRouters]);
 
 // React Query 클라이언트 생성 (데이터 캐싱 및 서버 상태 관리)
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 3,
@@ -73,8 +73,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />{" "}
-          {/* React Query 개발 도구 (닫힌 상태로 시작) */}
+          <ReactQueryDevtools initialIsOpen={false} />
         </AuthProvider>
       </QueryClientProvider>
     </div>

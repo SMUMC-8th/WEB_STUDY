@@ -36,7 +36,7 @@ export const postSignin = async (
 
 export const getMyInfo = async (): Promise<ResponseMyInfoDto> => {
   // POST 요청: /v1/users/me 경로로 사용자 정보 요청 (보통 accessToken이 필요)
-  const { data } = await axiosInstance.post("/v1/users/me");
+  const { data } = await axiosInstance.get("/v1/users/me");
 
   return data; // 사용자 정보 응답 반환
 };

@@ -32,7 +32,7 @@ const HomePage = () => {
   if (isError) return <div className="mt-20">Error...</div>;
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 pt-16">
       {/* 정렬 버튼 */}
       <div className="flex justify-end w-full mb-4">
         <div className="inline-flex rounded-lg overflow-hidden border border-white">
