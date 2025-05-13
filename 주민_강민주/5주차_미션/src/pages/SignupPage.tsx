@@ -10,6 +10,7 @@ import SignupPasswordStep from "../components/SignupPasswordStep";
 import SignupProfileStep from "../components/SignupProfileStep";
 import { postSignup } from "../apis/auth";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const emailSchema = z.object({
   email: z
@@ -25,6 +26,8 @@ const SignupPage = () => {
   const [savedEmail, setSavedEmail] = useState("");
   const [savedPassword, setSavedPassword] = useState("");
   // const [nickname, setNickname] = useState("");
+  const navigate = useNavigate();
+  
 
   const {
     register,
@@ -65,15 +68,12 @@ const SignupPage = () => {
 
     console.log("전송 데이터", JSON.stringify(finalSignupData));
 
-
-    const response = await postSignup(finalSignupData);
-    console.log(response)
     try{
       const response=await postSignup(finalSignupData);
       console.log("회원가입 성공:", response);
 
       alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-      window.location.href="/login";
+      navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log("Signup Error:", error);

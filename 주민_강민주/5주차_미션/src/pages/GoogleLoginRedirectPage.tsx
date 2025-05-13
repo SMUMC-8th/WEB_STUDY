@@ -1,28 +1,36 @@
 import { useEffect } from "react";
 import { LOCAL_STORAGE_KEY } from "../constants/key";
-import useLocalStorage from "../hooks/useLocalStorage";
+import {useLocalStorage} from "../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const GoogleLoginRedirectPage = () => {
   const { setItem: setAccessToken } = useLocalStorage(
-    "accessToken", LOCAL_STORAGE_KEY.accessToken
+     LOCAL_STORAGE_KEY.accessToken
   );
   const { setItem: setRefreshToken } = useLocalStorage(
-    "refreshToken", LOCAL_STORAGE_KEY.refreshToken
+     LOCAL_STORAGE_KEY.refreshToken
   );
+
+  const navigate=useNavigate();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const accessToken = urlParams.get(LOCAL_STORAGE_KEY.accessToken);
     const refreshToken = urlParams.get(LOCAL_STORAGE_KEY.refreshToken);
 
-    if (accessToken&&refreshToken) {
+    if (accessToken) {
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
-      window.location.href = "/mypage";
-    }
-  }, [setAccessToken, setRefreshToken]);
+      alert("구글 로그인 성공!");
 
-  return <div>구글 로그인 리다이렉 화면</div>;
+      navigate("/mypage");
+    } else{
+      alert("구글 로그인 실패!");
+      navigate("/login");
+    }
+  },[]);
+
+  return <div>구글 로그인 진행중...</div>;
 };
 
 export default GoogleLoginRedirectPage;

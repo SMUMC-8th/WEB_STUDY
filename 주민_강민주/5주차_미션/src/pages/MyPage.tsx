@@ -1,40 +1,47 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { getMyInfo } from "../apis/auth";
-import { ResponseMyInfoDto } from "../types/auth";
+// import { ResponseMyInfoDto } from "../types/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
 
 const MyPage = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const [data, setData] = useState<ResponseMyInfoDto | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [data, setData] = useState<ResponseMyInfoDto | null>(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        setLoading(true);
-        const response = await getMyInfo();
-        console.log("MyInfo Response:", response);
-        setData(response);
-        setError(null);
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
-        setError("사용자 정보를 가져오는데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await getMyInfo();
+  //       console.log("MyInfo Response:", response);
+  //       setData(response);
+  //       setError(null);
+  //     } catch (error) {
+  //       console.error("Failed to fetch user info:", error);
+  //       setError("사용자 정보를 가져오는데 실패했습니다.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
+
+  const {data, isLoading, isError, error} = useQuery({
+    queryKey: ['myInfo'],
+    queryFn: getMyInfo,
+    staleTime: 1000 * 60 * 5,
+  });
 
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-black text-white">
         <p>로딩 중...</p>
@@ -42,10 +49,10 @@ const MyPage = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
-        <p className="text-red-500 mb-4">{error}</p>
+        <p className="text-red-500 mb-4">{error.message}</p>
         <button
           className="cursor-pointer bg-blue-500 text-white rounded-md px-6 py-3 hover:bg-blue-600"
           onClick={() => navigate("/")}
