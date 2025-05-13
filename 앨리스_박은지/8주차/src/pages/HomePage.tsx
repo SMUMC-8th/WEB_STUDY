@@ -8,9 +8,13 @@ import Portal from "../components/portal/portal";
 import { useLocation } from "react-router-dom";
 import { Lp } from "../types/lp";
 import { Search } from "lucide-react";
+import { SEARCH_DEBOUNCE_DELAY } from "../constants/delay.ts";
+import useDebounce from "../hooks/queries/useDebounce.ts";
 
 function HomePage() {
   const location = useLocation();
+  const [search] = useState("");
+  const debouncedValue = useDebounce(search, SEARCH_DEBOUNCE_DELAY);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +29,7 @@ function HomePage() {
     hasNextPage,
     isPending,
     isFetching,
-  } = useGetInfiniteLpList(10, "", PAGINATION_ORDER.asc);
+  } = useGetInfiniteLpList(10, debouncedValue, PAGINATION_ORDER.asc);
 
   const { ref, inView } = useInView();
 

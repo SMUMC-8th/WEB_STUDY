@@ -1,0 +1,15 @@
+@keyframes pulse {
+  0% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.animate-pulse-custom {
+  animation: pulse 1s ease-in-out infinite;
+}
