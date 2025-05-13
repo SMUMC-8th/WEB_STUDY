@@ -26,3 +26,18 @@ export const getComments = async ({
 
 // query string : 서버에 어떤 데이터를, 어떤 방식으로 가져오라고 요청하는 정보를 URL에 포함시킨 거
 // ex. GET /v1/lps/1/comments?page=2&order=desc
+
+// 댓글 작성 API 함수
+export const postComment = async ({
+  lpId,
+  content,
+}: {
+  lpId: string;
+  content: string;
+}) => {
+  const { data } = await axiosInstance.post(`/v1/lps/${lpId}/comments`, {
+    content,
+  });
+
+  return data; // 서버 응답 데이터 반환
+};

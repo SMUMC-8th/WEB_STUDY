@@ -1,17 +1,44 @@
 // [CommentSection.tsx]
 // LP Detail 페이지에서 사용되는 댓글 컴포넌트
 // 댓글 목록을 서버에서 불러오고, 무한 스크롤 및 최신순/오래된순 정렬 기능 제공
+// 댓글 조회 + 작성 담당
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { FormEvent, useState } from "react";
 import { Comment } from "../../types/comment";
-import { getComments } from "../../apis/comment";
 import { ORDER_LABEL, TOrder } from "../../constants/enum";
 import CommentSkeletonList from "./CommentSkeletonList";
+import { getComments, postComment } from "../../apis/comment";
 
 function CommentSection({ lpId }: { lpId: string }) {
   // 정렬 기준 (최신순/오래된순)
   const [order, setOrder] = useState<TOrder>(TOrder.NEWEST);
+
+  //댓글 입력 상태
+  const [commentInput, setCommentInput] = useState("");
+  const queryClient = useQueryClient(); // 캐시 갱신용
+
+  // 댓글 작성 요청
+  const { mutate: createComment, isPending } = useMutation({
+    mutationFn: (content: string) => postComment({ lpId, content }),
+    onSuccess: () => {
+      setCommentInput(""); // 입력창 초기화
+      queryClient.invalidateQueries({ queryKey: ["comments", lpId, order] }); // 캐시 무효화 -> 목록 새로고침???
+    },
+  });
+
+  // 폼 제출 핸들러
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!commentInput.trim()) return;
+    createComment(commentInput.trim()); // 댓글 등록 요청
+  };
+
+  // 댓글 삭제 요청
 
   // useInfiniteQuery로 댓글 무한 스크롤
   const { data, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -77,9 +104,26 @@ function CommentSection({ lpId }: { lpId: string }) {
         </button>
       )}
 
-      {/* 댓글 작성 폼 (일단 디자인만) */}
-      <div className="mt-6 border rounded-lg p-3 text-sm text-gray-400 bg-gray-50">
-        댓글을 작성해주세요
+      {/* 댓글 작성 폼 */}
+      <div className="mt-6">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-row gap-2 p-4 items-center"
+        >
+          <input
+            value={commentInput}
+            onChange={(e) => setCommentInput(e.target.value)}
+            placeholder="댓글을 입력해주세요."
+            className="flex-1 h-10 border border-gray-300 rounded-md px-3 text-sm"
+          />
+          <button
+            type="submit"
+            disabled={!commentInput.trim() || isPending}
+            className="h-10 px-4 bg-gray-400 text-white text-sm rounded-md disabled:opacity-50"
+          >
+            작성
+          </button>
+        </form>
       </div>
     </div>
   );
