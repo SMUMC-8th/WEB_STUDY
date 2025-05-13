@@ -1,11 +1,11 @@
-import { CommonResponse } from "./common";
+import { CommonResponse } from './common';
 
 //회원가입 관련
-export type RequestSignupDto= {
+export type RequestSignupDto = {
     name: string;
     email: string;
-    bio? : string;
-    avatar? : string;
+    bio?: string;
+    avatar?: string;
     password: string;
 };
 
@@ -14,18 +14,18 @@ export type ResponseSignupDto = CommonResponse<{
     name: string;
     email: string;
     bio: string | null;
-    avatar: string  | null;
+    avatar: string | null;
     createdAt: Date;
     updatedAt: Date;
 }>;
 
 //로그인
-export type RequestSigninDto= {
+export type RequestSigninDto = {
     email: string;
     password: string;
 };
 
-export type ResponseSigninDto= CommonResponse<{
+export type ResponseSigninDto = CommonResponse<{
     id: number;
     name: string;
     accessToken: string;
@@ -38,7 +38,7 @@ export type ResponseMyInfoDto = CommonResponse<{
     name: string;
     email: string;
     bio: string | null;
-    avatar: string  | null;
+    avatar: string | null;
     createdAt: Date;
-    updatedAt: Date; 
+    updatedAt: Date;
 }>;

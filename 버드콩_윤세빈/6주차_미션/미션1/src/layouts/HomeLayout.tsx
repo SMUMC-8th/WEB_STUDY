@@ -1,15 +1,17 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const HomeLayout = () => {
     return (
-        <div className = "h-dvh flex flex-col">
-            <nav>네비게이션 바 입니다.</nav>
+        <div className="h-dvh flex flex-col">
+            <Navbar />
             <main className="flex-1">
                 <Outlet />
             </main>
-            <footer>푸터</footer>
-        </div>
 
+            <Footer />
+        </div>
     );
 };
 

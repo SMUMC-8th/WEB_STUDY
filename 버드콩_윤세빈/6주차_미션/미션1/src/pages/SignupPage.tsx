@@ -59,7 +59,7 @@ const SignupPage = () => {
         },
     });
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
-        // const {passwordCheck, ...rest } = data;
+        const { ...rest } = data;
 
         signupMutation(rest);
     };
