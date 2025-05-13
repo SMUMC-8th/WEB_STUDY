@@ -5,23 +5,30 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
-  const { login, accessToken } = useAuth();
-  const navigate = useNavigate();
+  const { login, accessToken } = useAuth(); // 인증 관련 함수와 토큰 상태 가져오기
+  const navigate = useNavigate(); // 페이지 이동에 사용
 
+  // 이메일과 비밀번호 입력값 및 유효성 검사 관리
   const { values, errors, touched, getInputProps } =
     useForm<UserSigninInformation>({
       initialValue: {
         email: "",
         password: "",
       },
-      validate: validateSignin, //사용자가 입력할 때마다 호출되는 검사 함수
+      validate: validateSignin, // 입력할 때마다 유효성 검사 수행
     });
 
   // 로그인 버튼 클릭 시 실행되는 함수 -> 로그인하면 mypage로 이동
   const handleSubmit = async () => {
-    await login(values);
+    try {
+      await login(values); // 로그인 요청
+      navigate("mypage"); // 로그인 성공 시 마이페이지로 이동
+    } catch (error) {
+      console.error("로그인 실패:", error);
+    }
   };
 
+  // 구글 로그인 버튼 클릭 시 실행 (서버에서 구글 로그인 시작 URL로 리디렉션)
   const handleGoogleLogin = () => {
     window.location.href =
       import.meta.env.VITE_SERVER_API_URL + "/v1/auth/google/login";
@@ -29,8 +36,8 @@ const LoginPage = () => {
 
   // 입력값이 비었거나 에러가 있으면 true를 반환 => 로그인 버튼 비활성화
   const isDisabled =
-    Object.values(errors || {}).some((error) => error.length > 0) ||
-    Object.values(values).some((value) => value === "");
+    Object.values(errors || {}).some((error) => error.length > 0) || // 유효성 검사 에러 존재 여부
+    Object.values(values).some((value) => value === ""); // 비어 있는 입력값 존재 여부
 
   return (
     // 전체 화면 가운데 정렬, 검은배경 적용

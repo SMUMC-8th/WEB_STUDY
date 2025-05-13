@@ -5,6 +5,10 @@ import { useAuth } from "../context/AuthContext";
 import useGetMyInfo from "../hooks/queries/useGetMyInfo";
 import usePostLike from "../hooks/mutations/usePostLike";
 import useDeleteLike from "../hooks/mutations/useDeleteLike";
+import { useMutation } from "@tanstack/react-query";
+import { deleteLp } from "../apis/lp";
+import { queryClient } from "../App";
+import CommentSection from "../components/Comment/CommentSection";
 
 const LpDetailPage = () => {
   const { lpId } = useParams(); // URL에서 lpId를 추출
@@ -22,12 +26,12 @@ const LpDetailPage = () => {
 
   // 좋아요 등록/취소를 위한 mutation 훅
   const { mutate: likeMutate } = usePostLike();
-  const { mutate: diaLikeMutate } = useDeleteLike();
+  const { mutate: disLikeMutate } = useDeleteLike();
 
   // 로그인 사용자가 이 LP에 좋아요를 눌렀는지 여부 확인
-  const isLiked = lp?.data.likes
-    .map((like) => like.userId)
-    .includes(me?.data.id as number);
+  // 데이터 id랑 유저 id랑 같은지 비교
+  const isLiked =
+    lp?.data.likes.some((like) => like.userId === me?.data.id) ?? false;
 
   // 좋아요 등록 함수
   const handleLikeLp = async () => {
@@ -36,13 +40,35 @@ const LpDetailPage = () => {
 
   // 좋아요 취소 함수
   const handleDisLikeLp = async () => {
-    diaLikeMutate({ lpId: Number(lpId) });
+    disLikeMutate({ lpId: Number(lpId) });
+  };
+
+  // // 내가 이 글을 쓴 작성자인지 검사하는 함수
+  // const isWriter = (authorId: number | undefined, userId: number): boolean => {
+  //   return authorId === userId;
+  // };
+
+  const { mutate: deleteLPMutate } = useMutation({
+    mutationFn: () => deleteLp({ lpId: Number(lpId) }),
+    onSuccess: () => {
+      alert("삭제가 완료되었습니다.");
+      // 관련 쿼리 무효화 (예: 리스트 갱신용)
+      queryClient.invalidateQueries({ queryKey: ["lps"] });
+    },
+    onError: (err) => {
+      console.error("삭제 실패:", err);
+      alert("삭제 중 오류가 발생했습니다.");
+    },
+  });
+
+  // 쓰레기통 클릭 -> 글 삭제하는거
+  const useDeleteLp = () => {
+    deleteLPMutate();
   };
 
   /// 로딩 중이거나 에러가 발생한 경우 아무것도 렌더링하지 않음
-  if (isPending && isError) {
-    return <></>;
-  }
+  if (isPending) return <p className="text-white p-8">로딩 중...</p>;
+  if (isError) return <p className="text-red-400 p-8">에러가 발생했습니다.</p>;
 
   return (
     <div className="bg-black flex justify-center px-4 py-12 overflow-hidden">
@@ -70,7 +96,7 @@ const LpDetailPage = () => {
               <button>
                 <Pencil size={20} />
               </button>
-              <button>
+              <button onClick={useDeleteLp}>
                 <Trash size={20} />
               </button>
             </div>
@@ -102,7 +128,6 @@ const LpDetailPage = () => {
           <p className="text-sm text-gray-300 text-center leading-relaxed">
             {lp?.data.content}
           </p>
-
           {/* 해시태그 리스트 */}
           <div className="flex flex-wrap gap-2 justify-center">
             {lp?.data.tags.map((tag) => (
@@ -114,7 +139,6 @@ const LpDetailPage = () => {
               </span>
             ))}
           </div>
-
           {/* 좋아요 수 + 아이콘 */}
           <div className="flex justify-center items-center gap-2">
             <button onClick={isLiked ? handleDisLikeLp : handleLikeLp}>
@@ -126,6 +150,8 @@ const LpDetailPage = () => {
             </button>
             <span className="text-sm text-white">{lp?.data.likes.length}</span>
           </div>
+          {/* 댓글 */}
+          {lpId && <CommentSection lpId={lpId} />}
         </div>
       </div>
     </div>

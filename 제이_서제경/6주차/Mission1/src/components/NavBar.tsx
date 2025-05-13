@@ -31,49 +31,61 @@ const NavBar = ({ setSidebarOpen }: NavBarProps) => {
 
   return (
     <>
-      <nav className="w-full bg-zinc-900 text-white px-6 py-4 flex items-center justify-between shadow-md">
-        {/* 왼쪽: 햄버거 + 로고 */}
-        <div className="flex items-center gap-3">
-          <button onClick={() => setSidebarOpen(true)} className="text-2xl">
-            ☰
-          </button>
-          <Link to="/" className="text-xl font-bold text-pink-400">
-            둘려돌려LP판
-          </Link>
-        </div>
+      <nav className="w-full fixed top-0 left-0 z-50 bg-black/70 backdrop-blur-md text-white px-6 shadow-sm">
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between h-[60px]">
+          {/* 왼쪽: 햄버거 + 로고 */}
+          <div className="flex items-center gap-x-4 h-full">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="text-xl hover:text-gray-300 transition-colors duration-200 leading-none align-middle"
+            >
+              ☰
+            </button>
+            <Link
+              to="/"
+              className="font-semibold text-lg tracking-tight hover:text-gray-400 transition-colors leading-none align-middle"
+            >
+              UMCLP
+            </Link>
+          </div>
 
-        {/* 오른쪽 */}
-        <div className="flex items-center gap-4 text-sm">
-          <button className="flex items-center text-white text-lg">
-            <span className="material-icons">search</span>
-          </button>
+          {/* 오른쪽 */}
+          <div className="flex items-center gap-x-6 text-sm font-medium h-full">
+            <button className="text-white hover:text-gray-300 transition-colors leading-none align-middle">
+              <span className="material-icons text-lg align-middle">
+                search
+              </span>
+            </button>
 
-          {accessToken ? (
-            <div className="flex items-center gap-4 text-sm">
-              <span className="text-white">{user?.name}님 반갑습니다</span>
-              <button
-                onClick={handleLogout}
-                className="hover:text-pink-400 transition-colors"
-              >
-                로그아웃
-              </button>
-            </div>
-          ) : (
-            <div className="flex gap-4 text-sm">
-              <Link
-                to="/login"
-                className="hover:text-pink-400 transition-colors"
-              >
-                로그인
-              </Link>
-              <Link
-                to="/signup"
-                className="hover:text-pink-400 transition-colors"
-              >
-                회원가입
-              </Link>
-            </div>
-          )}
+            {accessToken ? (
+              <div className="flex items-center gap-4">
+                <span className="text-gray-200 align-middle leading-none">
+                  {user?.name}님 반갑습니다
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="hover:text-gray-400 transition-colors duration-200 align-middle leading-none"
+                >
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                <Link
+                  to="/login"
+                  className="hover:text-gray-400 transition-colors duration-200 align-middle leading-none"
+                >
+                  로그인
+                </Link>
+                <Link
+                  to="/signup"
+                  className="hover:text-gray-400 transition-colors duration-200 align-middle leading-none"
+                >
+                  회원가입
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
     </>
