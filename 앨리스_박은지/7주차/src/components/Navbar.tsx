@@ -46,17 +46,17 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-900 border-b border-gray-800 fixed top-0 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             {modalOpen && <Alert onClose={handleCloseModal}></Alert>}
             <CiMenuBurger
-              size={20}
+              size={23}
               color="white"
               className="hover:cursor-pointer"
               onClick={() => setModalOpen(!modalOpen)}
             />
-            <Link to="/" className="ml-4 flex items-center">
+            <Link to="/" className="ml-5 flex items-center">
               <span className="text-xl font-bold text-pink-500">
                 돌려돌려LP판
               </span>

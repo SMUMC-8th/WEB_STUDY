@@ -50,3 +50,17 @@ export const postLogout = async () => {
     throw error;
   }
 };
+
+export async function patchMyInfo(data: {
+  name: string;
+  bio?: string;
+  avatar?: string;
+}) {
+  try {
+    const response = await axiosInstance.patch("v1/users", data);
+    return response.data;
+  } catch (error) {
+    console.error("patchMyInfo Error:", error);
+    throw error;
+  }
+}

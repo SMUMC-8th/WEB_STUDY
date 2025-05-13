@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useGetLpDetail from "../../hooks/queries/useGetLpDetail";
 import { CommentContainer } from "../Comment/CommentContainer";
 import { useState } from "react";
 import { Heart, Pen, Trash, MessageCircle } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
 import useGetMyInfo from "../../hooks/queries/useGetMyInfo";
 import { useAuth } from "../../context/AuthContext.tsx";
 import usePostLike from "../../hooks/mutation/usePostLike";
 import useDeleteLike from "../../hooks/mutation/useDeleteLike";
+import { deleteLp } from "../../apis/lp";
+import { queryClient } from "../../App.tsx";
 
 const LpDetailPage = () => {
   const { lpId } = useParams();
@@ -17,7 +20,7 @@ const LpDetailPage = () => {
     isError,
   } = useGetLpDetail({ lpid: Number(lpId) });
   const lp = lpDetail?.data;
-
+  const navigate = useNavigate();
   const { data: me } = useGetMyInfo(accessToken);
   //mutate -> 비동기 요청을 실행하고, 콜백 함수를 이요해서 후속 작업 처리함.
   //mutateAsync -> Promise를 반환해서 await 사용 가능.
@@ -34,6 +37,18 @@ const LpDetailPage = () => {
   };
   const handleDislikeLp = () => {
     disLikeMutate({ lpid: Number(lpId) });
+  };
+
+  const { mutate: deleteLpMutate } = useMutation({
+    mutationFn: () => deleteLp({ lpId: Number(lpId) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getLps"] });
+      navigate("/");
+    },
+  });
+
+  const handleDelete = () => {
+    deleteLpMutate();
   };
 
   if (isPending) {
@@ -75,7 +90,7 @@ const LpDetailPage = () => {
                   <Pen />
                 </button>
                 <button className="text-gray-400 hover:text-white p-1">
-                  <Trash />
+                  <Trash onClick={handleDelete} />
                 </button>
               </div>
             </div>
@@ -86,8 +101,10 @@ const LpDetailPage = () => {
                   <img
                     src={lp.thumbnail}
                     alt={lp.title}
-                    className="w-full h-full object-cover rounded-full shadow-lg"
+                    className="w-full h-full object-cover rounded-full shadow-lg infinite_rotating animate-spin"
+                    style={{ transform: "rotate(360deg)" }}
                   />
+
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-8 h-8 bg-white rounded-full"></div>
                   </div>

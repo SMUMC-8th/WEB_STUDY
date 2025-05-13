@@ -1,41 +1,78 @@
-import useForm from "../hooks/useForm";
 import { validateSignin, UserSigninInformation } from "../utils/validate";
 import { AxiosError } from "axios";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { postSignin } from "../apis/auth";
+import { useMutation } from "@tanstack/react-query";
 
 function LoginPage() {
-  const { login, accessToken } = useAuth();
+  const { accessToken, login } = useAuth();
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<Partial<UserSigninInformation>>({});
+
   useEffect(() => {
     if (accessToken) {
-      navigate("/my-page");
+      navigate("/my-page", { replace: true });
     }
   }, [accessToken, navigate]);
-  const { errors, touched, getInputProps, handleSubmit } =
-    useForm<UserSigninInformation>({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validate: validateSignin,
-      onSubmit: async (values) => {
-        try {
-          const response = await login(values);
-          console.log("로그인 성공:", response);
-        } catch (error) {
-          if (error instanceof AxiosError) {
-            const errorMessage =
-              error.response?.data?.message || "로그인에 실패했습니다.";
-            alert(errorMessage);
-          } else {
-            alert("알 수 없는 오류가 발생했습니다.");
-          }
-        }
-      },
-    });
+
+  const loginMutation = useMutation({
+    mutationFn: async (values: UserSigninInformation) => {
+      const response = await postSignin(values);
+
+      return response;
+    },
+    onSuccess: async (response) => {
+      if (response && response.data) {
+        await login({
+          email: formData.email,
+          password: formData.password,
+        });
+        navigate("/my-page", { replace: true });
+      } else {
+        throw new Error("로그인 응답이 올바르지 않습니다");
+      }
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.message || "로그인에 실패했습니다.";
+        alert(errorMessage);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
+    },
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate form
+    const validationErrors = validateSignin(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    try {
+      await loginMutation.mutateAsync(formData);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
   const handleGoogleLogin = () => {
     window.location.href =
@@ -69,29 +106,33 @@ function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input
-              {...getInputProps("email")}
+              name="email"
               type="email"
+              value={formData.email}
+              onChange={handleInputChange}
               placeholder="이메일을 입력해주세요!"
               className="w-full bg-gray-900 border border-gray-800 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
-            {errors?.email && touched?.email && (
+            {errors.email && (
               <div className="text-red-500 text-sm mt-1">{errors.email}</div>
             )}
           </div>
           <div>
             <input
-              {...getInputProps("password")}
+              name="password"
               type="password"
+              value={formData.password}
+              onChange={handleInputChange}
               placeholder="비밀번호를 입력해주세요!"
               className="w-full bg-gray-900 border border-gray-800 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
-            {errors?.password && touched?.password && (
+            {errors.password && (
               <div className="text-red-500 text-sm mt-1">{errors.password}</div>
             )}
           </div>
           <button
             type="submit"
-            className="w-full bg-gray-900 text-white rounded-md py-3 font-medium hover:bg-gray-800"
+            className="w-full bg-pink-500 text-white rounded-md py-3 hover:bg-pink-600 transition-colors"
           >
             로그인
           </button>
@@ -100,4 +141,5 @@ function LoginPage() {
     </div>
   );
 }
+
 export default LoginPage;
