@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { deleteLp } from "../apis/LP";
-import { Pencil } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { queryClient } from "../App";
 
 const LpDetailPage = () => {
@@ -116,7 +116,21 @@ const LpDetailPage = () => {
             </span>
           </div>
         </div>
-        <span className="mb-4">{lp?.data.title}</span>
+        <div className="flex justify-between items-center w-full mb-4">
+          <span className="mb-4">{lp?.data.title}</span>
+          {isWriter(lp?.data.author.id, userId) && (
+            <div className="flex gap-2">
+              <Pencil
+                className="text-white cursor-pointer"
+                onClick={() => navigate(`/lps/${lpId}/edit`)}
+              />
+              <Trash2
+                className="text-white cursor-pointer"
+                onClick={handledeleteLp}
+              />
+            </div>
+          )}
+        </div>
         <img
           src={lp?.data.thumbnail || "https://via.placeholder.com/300"}
           alt={lp?.data.title}
@@ -137,9 +151,6 @@ const LpDetailPage = () => {
             />
           )}
           <span>{lp?.data.likes?.length || 0}</span>
-        </button>
-        <button className="text-white" onClick={handledeleteLp}>
-          삭제
         </button>
       </div>
     </div>
