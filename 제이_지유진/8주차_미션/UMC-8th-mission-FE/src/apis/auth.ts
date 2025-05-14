@@ -29,6 +29,23 @@ export const getMyInfo = async (): Promise<ResponseMyInfoDto> => {
   return data;
 };
 
+export const PatchMyInfo = async ({
+  name,
+  bio,
+  avatar,
+}: {
+  name: string;
+  bio: string | null;
+  avatar: string | null;
+}): Promise<ResponseMyInfoDto> => {
+  const { data } = await axiosInstance.patch("/v1/users", {
+    name,
+    bio,
+    avatar,
+  });
+  return data;
+};
+
 export const postLogout = async (): Promise<void> => {
   //파라미터가 없음 body에 들어갈 게 없으니까
   const { data } = await axiosInstance.post("/v1/auth/signout");

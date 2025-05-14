@@ -61,7 +61,7 @@ function Home() {
   //   }
   // }, [isFetching, inView, hasNextPage, fetchNextPage]);
   // fetchNextPage를 throttle 처리해서 useRef에 저장
-  const throttledFetchRef = useRef<() => void>();
+  const throttledFetchRef = useRef<() => void>(null);
 
   const throttledFetch = useThrottle(() => {
     if (!isFetching && hasNextPage) {

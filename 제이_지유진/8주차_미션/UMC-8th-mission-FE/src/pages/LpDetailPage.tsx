@@ -4,11 +4,12 @@ import { deleteLike, postLike, TLikes } from "../constants/lps";
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { FaHeart } from "react-icons/fa";
-import { queryClient } from "../main";
+
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { deleteLp } from "../apis/LP";
 import { Pencil } from "lucide-react";
+import { queryClient } from "../App";
 
 const LpDetailPage = () => {
   const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동

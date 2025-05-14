@@ -1,8 +1,11 @@
 import { getMyInfo } from "../apis/auth.ts";
-import Order from "../components/order.tsx";
+import MypageModal from "../components/alert/MypageModal.tsx";
+// import Order from "../components/order.tsx";
 import { useAuth } from "../context/AuthContext.tsx";
 import { useQuery } from "@tanstack/react-query";
-import { IoIosSettings } from "react-icons/io";
+import { Settings } from "lucide-react";
+// import { MypageModal} from ""
+import { useState } from "react";
 export default function Mypage() {
   const { data } = useQuery({
     queryKey: ["myInfo"],
@@ -20,6 +23,7 @@ export default function Mypage() {
   // }, []);
 
   const { logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -40,7 +44,19 @@ export default function Mypage() {
           <div>
             <div className="flex justify-between gap-4">
               <h1 className="text-[20px]">{data?.data?.name}</h1>
-              <IoIosSettings className="cursor-pointer" />
+              {isOpen && (
+                <MypageModal
+                  onClose={() => setIsOpen(false)}
+                  name={data?.data.name as string}
+                  bio={data?.data.bio as string}
+                  avatar={data?.data.avatar as string}
+                  email={data?.data.email as string}
+                ></MypageModal>
+              )}
+              <Settings
+                className="cursor-pointer"
+                onClick={() => setIsOpen(true)}
+              />
             </div>
             <h1>{data?.data?.email}</h1>
             <h1>{data?.data?.bio}</h1>

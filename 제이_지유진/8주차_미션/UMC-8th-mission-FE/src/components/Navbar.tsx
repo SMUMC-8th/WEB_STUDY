@@ -49,7 +49,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 w-full bg-zinc-800 h-[60px] min-h-[80px] flex items-center pl-5 pr-5 z-[1000] box-border">
+    <div className="fixed top-0 left-0 right-0 w-full bg-zinc-800 h-[60px] min-h-[80px] flex items-center pl-5 pr-5 z-10 box-border">
       {modalOpen && <Alert onClose={handleCloseModal} />}
       <HamburgerButton onToggle={handleToggleModal} isOpen={modalOpen} />
       <p

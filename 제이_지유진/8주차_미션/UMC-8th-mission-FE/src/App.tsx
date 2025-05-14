@@ -63,7 +63,7 @@ const protectedRoutes: RouteObject[] = [
     ],
   },
 ];
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 const router = createBrowserRouter([...publicRoutes, ...protectedRoutes]);
 function App() {
   const [isOpen, setIsOpen] = useState(false);
