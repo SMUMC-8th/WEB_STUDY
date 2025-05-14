@@ -1,14 +1,15 @@
-import { RequestSigninDto } from "../src/types/auth";
+import { RequestSigninDto } from "../types/auth";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { useLocalStorage } from "../src/hooks/useLocalStorage";
-import { LOCAL_STORAGE_KEY } from "../src/constants/key";
-import { postSignin, postLogout } from "../src/apis/auth";
-import React from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { LOCAL_STORAGE_KEY } from "../constants/key";
+import { postSignin, postLogout } from "../apis/auth";
 interface AuthContextType {
   accessToken: string | null;
   refreshToken: string | null;
   login: (signinData: RequestSigninDto) => Promise<void>;
   logout: () => Promise<void>;
+  userId: number | null | undefined;
+  setUserId: (userId: number | null | undefined) => void;
 }
 //context type 도 만들었고... 들고 올 거니까 우산을 만들어줘야 한다?
 
@@ -18,6 +19,8 @@ export const AuthContext = createContext<AuthContextType>({
   refreshToken: null,
   login: async () => {}, //promise로 받아야 하니까 async로
   logout: async () => {},
+  userId: null,
+  setUserId: () => {},
 });
 //우산을 만들어주어야 한다.
 //children 타입을 전달해줘야 한다. 이에 대한 타입은 PropsWithChildren으로 정의해주자.
@@ -44,6 +47,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     getRefreshTokenFromStorage()
   );
 
+  const [userId, setUserId] = useState<number | null | undefined>(null);
+
   const login = async (signinData: RequestSigninDto) => {
     //기본적으로 signinData를 받아야 한다.
     try {
@@ -52,7 +57,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       if (data) {
         const newAccessToken = data.accessToken;
         const newRefreshToken = data.refreshToken;
-
+        setUserId(data.id);
         setAccessTokenFromStorage(newAccessToken);
         setRefreshTokenFromStorage(newRefreshToken);
 
@@ -91,6 +96,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         refreshToken,
         login,
         logout,
+        userId,
+        setUserId,
       }}
     >
       {children}
