@@ -17,7 +17,6 @@ function GoogleLoginRedirectPage() {
       localStorage.setItem(LOCAL_STORAGE_KEY.refreshToken, refreshToken);
     }
 
-    // 저장 후 마이페이지로 이동
     window.location.href = "/my-page";
   }, []);
 

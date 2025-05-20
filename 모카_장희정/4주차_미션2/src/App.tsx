@@ -31,7 +31,12 @@ const protectedRoutes: RouteObject[] = [
     path: "/my-page",
     element: <ProtectedLayout />,
     errorElement: <NotFoundPage />,
-    children: [{ element: <MyPage /> }],
+    children: [
+      {
+        index: true,
+        element: <MyPage />,
+      },
+    ],
   },
 ];
 

@@ -10,11 +10,11 @@ function LoginPage() {
   const { login, accessToken } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (accessToken) {
-      navigate("/my-page");
-    }
-  }, [accessToken, navigate]);
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     navigate("/my-page");
+  //   }
+  // }, [accessToken, navigate]);
 
   const { errors, touched, getInputProps, handleSubmit } =
     useForm<UserSigninInformation>({

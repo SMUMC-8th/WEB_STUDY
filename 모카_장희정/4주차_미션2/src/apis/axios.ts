@@ -2,18 +2,14 @@ import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import { LOCAL_STORAGE_KEY } from "../constants/key.ts";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-// 환경 변수 확인용 로그
-console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
-
-// _retry 속성을 추가한 사용자 정의 타입
-interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
 }
 
 let refreshPromise: Promise<string> | null = null;
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // ✅ 수정 완료
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 // 요청 인터셉터
@@ -22,6 +18,7 @@ axiosInstance.interceptors.request.use(
     const { getItem } = useLocalStorage(LOCAL_STORAGE_KEY.accessToken);
     const accessToken = getItem();
 
+    // accessToken이 존재하면 Authorization 헤더에 Bearer 토큰 형식으로 추가한다.
     if (accessToken) {
       config.headers = config.headers || {};
       config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -34,7 +31,7 @@ axiosInstance.interceptors.request.use(
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => response, //정상 응답 그대로 반환환
   async (error) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
 

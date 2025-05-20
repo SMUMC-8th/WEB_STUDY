@@ -56,7 +56,7 @@ const MyPage = () => {
     );
   }
 
-  if (!data || !data.data) {
+  if (!data || !data.data || !data.data.name) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
         <p className="mb-4">사용자 정보가 없습니다.</p>
