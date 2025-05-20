@@ -4,9 +4,7 @@ import axios from "axios";
 import type { MovieDetail as MovieDetailType, Credits } from "../types/movie";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
-import profileImage from "../assets/Profile.png";
 
-// ✅ 여기가 실제 컴포넌트 정의
 const MovieDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState<MovieDetailType | null>(null);
@@ -38,11 +36,22 @@ const MovieDetail = () => {
   if (!data) return null;
 
   return (
-    <div>
-      <h1>{data.title}</h1>
-      <p>{data.overview}</p>
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h1
+        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "10px" }}
+      >
+        {data.title}
+      </h1>
+      <img
+        src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+        alt={data.title}
+        style={{ width: "300px", borderRadius: "10px", marginBottom: "20px" }}
+      />
+      <p style={{ maxWidth: "600px", margin: "0 auto", lineHeight: "1.6" }}>
+        {data.overview}
+      </p>
     </div>
   );
 };
 
-export default MovieDetail; // ✅ 이제 이게 진짜 컴포넌트를 내보냄
+export default MovieDetail;
