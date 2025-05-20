@@ -1,4 +1,9 @@
-import { getLPRequest, TGetLPResponse } from "../constants/lps";
+import {
+  getCommentsRequest,
+  getLPRequest,
+  TGetCommentsResponse,
+  TGetLPResponse,
+} from "../constants/lps";
 import { RequestLpDto, TPostLPRequest } from "../types/lp";
 import { axiosInstance } from "./axios";
 
@@ -38,6 +43,17 @@ export const postLP = async ({
     tags,
     thumbnail,
     published,
+  });
+  return data;
+};
+
+export const getComments = async ({
+  lpId,
+  order,
+  cursor,
+}: getCommentsRequest): Promise<TGetCommentsResponse> => {
+  const { data } = await axiosInstance.get(`v1/lps/${lpId}/comments`, {
+    params: { order, cursor },
   });
   return data;
 };

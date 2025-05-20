@@ -21,6 +21,18 @@ export type getLPRequest = {
   search: string;
 };
 
+export type getCommentsRequest = {
+  order: TOrder;
+  cursor: number;
+  lpId: number;
+};
+export type TGetCommentsResponse = CommonResponse<{
+  data: TLP[];
+  hasNext: boolean;
+  nextCursor: number;
+  cursor: number;
+}>;
+
 export type TGetLPResponse = CommonResponse<{
   data: TLP[];
   hasNext: boolean;

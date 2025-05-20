@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import { axiosInstance } from "../apis/axios";
+// import { axiosInstance } from "../apis/axios";
 import { TOrderLabel } from "../constants/enum";
 import { TOrder } from "../constants/enum";
 import Order from "../components/order";
-import { CommonResponse } from "../types/common";
+// import { CommonResponse } from "../types/common";
 import { useInView } from "react-intersection-observer";
 import useGetLps from "../hooks/useGetLps";
 import LpCard from "../components/LpCard";
@@ -46,7 +46,7 @@ function Home() {
   } = useGetLps({
     order: order,
     cursor: 0,
-    search: debounceValue, // search를 파라미터로 전달
+    search: debounceValue,
   });
 
   const { ref, inView } = useInView({
