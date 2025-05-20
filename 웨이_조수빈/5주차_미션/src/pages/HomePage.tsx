@@ -1,10 +1,12 @@
-import { GiPenguin } from "react-icons/gi";
+import useGetLpList from "../hooks/queries/useGetLPList";
+
 
 function HomePage() {
+  const {data: ResponseLPListDto, isPending, isError} = useGetLpList({});
+  console.log("ResponseLPListDto", ResponseLPListDto);
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <GiPenguin className="text-7xl mb-4"></GiPenguin>{/* 펭귄 아이콘 */}
-      <p className="text-3xl">환영합니다!</p>
+      {ResponseLPListDto?.data.map((lp)=><h1>{lp.title}</h1>)}
     </div>
   );
 }

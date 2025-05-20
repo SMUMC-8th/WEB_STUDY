@@ -24,6 +24,12 @@ const Navbar = () => {
                 >
                   마이페이지
                 </Link>
+                <Link
+                  to="/search"
+                  className="text-gray-300 hover:text-white px-3 py-2 text-lg font-bold"
+                >
+                  검색
+                </Link>
                 <button
                   onClick={logout}
                   className="text-gray-300 hover:text-white px-3 py-2 text-lg font-bold"
