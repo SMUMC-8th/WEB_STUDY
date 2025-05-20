@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.animate-spin-slow {
+  animation-duration: 7s;
+}
