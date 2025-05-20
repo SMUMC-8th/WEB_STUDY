@@ -1,17 +1,23 @@
-import { Provider } from "react-redux";
 import "./App.css";
 import CartList from "./components/CartList";
 import Navbar from "./components/Navbar";
-import store from "./store/store";
 import { PriceBox } from "./components/PriceBox";
+import { useEffect } from "react";
+import { useCartActions } from "./hooks/useCartStore";
 
 function App() {
+  const { calculateTotals } = useCartActions();
+  useEffect(() => {
+    // 초기화 작업
+
+    calculateTotals();
+  }, [calculateTotals]);
   return (
-    <Provider store={store}>
+    <div>
       <Navbar />
       <CartList />
       <PriceBox />
-    </Provider>
+    </div>
   );
 }
 
