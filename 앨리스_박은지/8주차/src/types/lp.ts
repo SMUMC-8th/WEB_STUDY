@@ -52,3 +52,27 @@ export type RequestPostLpDto = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type PostCommentDto = {
+  content: string;
+  lpId: number;
+};
+
+export type TAuthor = {
+  id: number;
+  name: string;
+  bio: string | null;
+  avatar: string | null;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type TResponsePostComment = CommonResponse<{
+  id: number;
+  content: string;
+  lpId: number;
+  authorId: number;
+  createdAt: string;
+  updatedAt: string;
+  author: TAuthor;
+}>;

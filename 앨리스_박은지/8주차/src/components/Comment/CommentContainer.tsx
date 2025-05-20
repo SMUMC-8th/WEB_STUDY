@@ -5,6 +5,8 @@ import { getComments } from "../../apis/comment";
 import { Comment } from "./Comment";
 import { GetCommentsResponse } from "../../types/comment";
 import { IoChevronBack } from "react-icons/io5";
+import { useComment } from "../../hooks/mutation/useComment";
+import { queryClient } from "../../App";
 
 interface CommentContainerProps {
   lpId: string;
@@ -14,8 +16,9 @@ interface CommentContainerProps {
 export const CommentContainer = ({ lpId, onClose }: CommentContainerProps) => {
   const { ref, inView } = useInView();
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [comment, setComment] = useState("");
   const [order, setOrder] = useState<"asc" | "desc">("desc");
-
+  const { mutate: commentMutate } = useComment();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery<GetCommentsResponse>({
       queryKey: ["comments", lpId, order],
@@ -26,6 +29,23 @@ export const CommentContainer = ({ lpId, onClose }: CommentContainerProps) => {
         lastPage.data.hasNext ? lastPage.data.nextCursor : undefined,
     });
 
+  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleComment = () => {
+    commentMutate(
+      { lpId: Number(lpId), content: comment },
+      {
+        onSuccess: () => {
+          setComment("");
+          queryClient.invalidateQueries({
+            queryKey: ["comments", lpId, order],
+          });
+        },
+      }
+    );
+  };
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -71,11 +91,17 @@ export const CommentContainer = ({ lpId, onClose }: CommentContainerProps) => {
           <div className="flex gap-3 mb-4">
             <textarea
               ref={inputRef}
+              onChange={handleChangeComment}
+              value={comment}
               className="flex-grow px-3 py-2 border border-gray-700 rounded-lg resize-none h-[38px] min-h-[38px] bg-[#2A2A2A] text-white placeholder-gray-400 text-sm overflow-hidden"
               placeholder="댓글을 입력해주세요"
               style={{ resize: "none" }}
             />
-            <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm whitespace-nowrap">
+
+            <button
+              onClick={handleComment}
+              className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm whitespace-nowrap"
+            >
               작성
             </button>
           </div>

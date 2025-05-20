@@ -1,4 +1,8 @@
-import { TDeleteLpResponse } from "../types/lp.ts";
+import {
+  PostCommentDto,
+  TDeleteLpResponse,
+  TResponsePostComment,
+} from "../types/lp.ts";
 import { PaginationDto } from "../types/common.ts";
 import {
   ResponseLPListDto,
@@ -45,5 +49,15 @@ export const deleteLp = async ({
   lpId: number;
 }): Promise<TDeleteLpResponse> => {
   const { data } = await axiosInstance.delete(`/v1/lps/${lpId}`);
+  return data;
+};
+
+export const postComments = async ({
+  content,
+  lpId,
+}: PostCommentDto): Promise<TResponsePostComment> => {
+  const { data } = await axiosInstance.post(`/v1/lps/${lpId}/comments`, {
+    content,
+  });
   return data;
 };

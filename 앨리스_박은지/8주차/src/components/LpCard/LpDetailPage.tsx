@@ -30,6 +30,7 @@ const LpDetailPage = () => {
   const isLiked =
     lp?.likes?.map((like) => like.userId).includes(me?.data.id as number) ||
     false;
+
   const [showComments, setShowComments] = useState(false);
 
   const handleLikeLp = () => {

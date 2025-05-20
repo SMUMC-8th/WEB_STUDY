@@ -7,7 +7,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import MyPage from "./pages/MyPage";
 import { AuthProvider } from "./context/AuthContext";
 import { RouteObject } from "react-router-dom";
-a;
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

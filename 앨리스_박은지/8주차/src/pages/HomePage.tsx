@@ -13,10 +13,11 @@ import useDebounce from "../hooks/queries/useDebounce.ts";
 
 function HomePage() {
   const location = useLocation();
-  const [search] = useState("");
-  const debouncedValue = useDebounce(search, SEARCH_DEBOUNCE_DELAY);
-  const [showSearch, setShowSearch] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedValue = useDebounce(searchQuery, SEARCH_DEBOUNCE_DELAY);
+  const [showSearch, setShowSearch] = useState(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,12 +61,6 @@ function HomePage() {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  // 검색어가 있을 때 LP 목록을 필터링 (id로만 비교)
-  const filteredLps = lps?.pages
-    ?.map((page: { data: { data: Lp[] } }) => page.data.data)
-    ?.flat()
-    ?.filter((lp) => searchQuery === "" || String(lp.id) === searchQuery);
-
   return (
     <div className="container mx-auto px-4 py-6 max-w-[1100px]">
       {showSearch && (
@@ -87,14 +82,11 @@ function HomePage() {
       )}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {isPending && <LpCardSkeletonList count={20} />}
-        {(showSearch
-          ? filteredLps
-          : lps?.pages
-              ?.map((page: { data: { data: Lp[] } }) => page.data.data)
-              ?.flat()
-        )?.map((lp: Lp) => (
-          <LpCard key={lp.id} lp={lp} />
-        ))}
+        {lps?.pages.map((lp) =>
+          lp.data.data.map((lpData: Lp) => (
+            <LpCard key={lpData.id} lp={lpData} />
+          ))
+        )}
         {isFetching && <LpCardSkeletonList count={20} />}
       </div>
       <div ref={ref} className="h-2"></div>
