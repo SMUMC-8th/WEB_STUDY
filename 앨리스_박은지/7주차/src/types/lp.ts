@@ -37,3 +37,18 @@ export type ResponseLikeLpDto = CommonResponse<{
   userId: number;
   lpId: number;
 }>;
+
+export type TDeleteLpResponse = CommonResponse<{
+  message: string;
+}>;
+
+export type RequestPostLpDto = {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  published: boolean;
+  authorId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};

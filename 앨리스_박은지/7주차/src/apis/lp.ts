@@ -1,3 +1,4 @@
+import { TDeleteLpResponse } from "../types/lp.ts";
 import { PaginationDto } from "../types/common.ts";
 import {
   ResponseLPListDto,
@@ -35,5 +36,14 @@ export const deleteLike = async ({
   lpid,
 }: RequestLpDto): Promise<ResponseLikeLpDto> => {
   const { data } = await axiosInstance.delete(`/v1/lps/${lpid}/likes`);
+  return data;
+};
+
+export const deleteLp = async ({
+  lpId,
+}: {
+  lpId: number;
+}): Promise<TDeleteLpResponse> => {
+  const { data } = await axiosInstance.delete(`/v1/lps/${lpId}`);
   return data;
 };
